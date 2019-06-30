@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Chemicals Store</title>
+</head>
+
+<body>
+    <div class="web_store">
+        <!-- content -->
+        <div class="am-g web_section ">
+        </div>
+    </div>
+    <div class="footer footer_page">
+        <!-- footer -->
+        <div class="container">
+            <div class="container footer_copyright">
+            </div>
+        </div>
+    </div>
+    <script type="text/template" id="content">
+        <$ if (data) { $>
+        <div class="container" style="width:1000px;min-width:1000px">
+                <div class="result-list">
+                    <div class="title result_tab">
+                        <div class="result_tab_name">
+                            查询结果 :  <$ data.goodsname ? data.goodsname  : '无' $>
+                        </div>
+                        <span style="display:none" id="pdtName"><$ data.goodsname $></span>
+                    </div>
+                    <div class="info">
+                            <$ if (data.goodsname) { $>
+                                <h3 class="am-text-center">无此产品,请检查关键词重试</h3>
+                                <$ }else{ $>
+                        <div class="am-g">
+                            <div class="am-u-sm-12 am-fr">
+                                <div class="info-line am-fr">
+                                    <div>
+                                        <label for="">CAS# <span>:</span>
+                                        </label>
+                                        <span id="pdtCas"><$ data.goodscas $></span>
+                                    </div>
+                                    <div>
+                                        <label for="">MDL# <span>:</span></label>
+                                        <span id="pdtMdl"><$ data.mdl $></span>
+                                    </div>
+                                    <div>
+                                            <label for="">分子式 <span>:</span></label>
+                                        <span id="pdtSumformula"><$ data.sumformula $></span>
+                                    </div>
+                                    <div>
+                                            <label for="">分子量 <span>:</span></label>
+                                        <span id="pdtMulecularWeight"><$ data.mulecularWeight $></span>
+                                    </div>
+                                </div>
+                                <div class="am-fr">
+                                   <a id="img_open" title="查看大图" href="<$ data.showimg $>" style="display:block">
+                                    <img id="showimg" src="<$ data.showimg $>" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <$ } $>
+                    </div>
+                    <div class="list-detail">
+
+                    </div>
+                </div>
+            </div>
+            <$ } $>
+    </script>
+    <script type="text/template" id="temp">
+        <$ if (data) { $>
+        <$ data.gys_list.forEach(function(el,index){ $>
+            <div class="line-title">
+                    <div class="line-title result_tab">
+                            <div class="result_tab_name">
+                                    货号 <$= el.no $>
+                                <span>-</span>
+                            </div>
+                        </div>
+            </div>
+            <div class="detail-list">
+                <div class="am-g">
+                    <div class="am-u-sm-10 detail-list-left">
+                        <table class="am-table">
+                            <thead>
+                                <tr>
+                                    <th width="25%">包装</th>
+                                    <th width="20%">单价</th>
+                                    <th width="20%">预计发货时间</th>
+                                    <th width="15%">含量</th>
+                                    <th width="20%" class="am-text-center">订购数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <$ el.bz.forEach(function(els,indexs){ $>
+                                <tr>
+                                    <td>
+                                        <$= els.bz $>
+                                    </td>
+                                    <td class="line-price-hook">
+                                        <$= els.jiage $>
+                                    </td>
+                                    <td>
+                                        <$= els.shijian $>
+                                    </td>
+                                    <td>
+                                        <$= els.hanliang $>
+                                    </td>
+                                    <td class="am-text-center">
+                                        <div class="count-box">
+                                            <i class="plus"> + </i>
+                                            <input data-info="{'no':'<$= el.no $>','bz':'<$= els.bz $>','jiage':'<$= els.jiage $>','shijian':'<$= els.shijian $>','hanliang':'<$= els.hanliang $>'}" class="count-num-hook" type="number">
+                                            <i class="reduce"> - </i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <$})$>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="am-u-sm-2 detail-list-right">
+                        <div class="detail-handler">
+                            <div class="detail-price">¥0.00</div>
+                            <button title="加入购物车">
+                             </button>
+                            <input type="hidden" name="cartInfo" id="" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-list-blank"></div>
+            <$})$>
+                <$ } $>
+</script>
+
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/ejs.min.js"></script>
+    <script type="text/javascript" src="assets/js/imagelightbox.min.js"></script>
+    <script type="text/javascript" src="result.js"></script>
+    <script>
+        if (window.module) module = window.module;
+    </script>
+</body>
+
+</html>

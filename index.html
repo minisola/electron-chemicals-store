@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Chemicals Store</title>
-  </head>
-  <body>
-    <h1>Chemicals Store</h1>
-    <form action="">
-      <input type="text">
-      <button type="submit">搜索</button>
-    </form>
-    <!-- You can also require other files to run in this process -->
-    <script src="./index.js"></script>
-  </body>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Chemicals Store</title>
+</head>
+
+<body>
+  <div class="web_store">
+    <div class="web_store_index">
+      <div class="store_index_search">
+        <div class="store_logo">
+        </div>
+        <form>
+          <div class="store_search_box">
+            <input placeholder="请输入名称、CAS、MDL" type="text" name="keywords" id="searchtext"
+              placeholder="输入任意关键词(CAS编号、分子式、名字等)">
+            <button type="submit" class="search_sbumit_btn"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="footer footer_page">
+  </div>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+
 </html>

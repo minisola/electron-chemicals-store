@@ -15,8 +15,4 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     return false
   })
-
-
-  // getOne('54-06-8')
-
 })
