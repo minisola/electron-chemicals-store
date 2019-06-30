@@ -20,7 +20,7 @@ module.exports = {
     },
     async getOne(keywords= '') {
         const limit = 10
-        const res = await Goods.findAll({
+        const res = await Goods.findAndCountAll({
             where:{
                 [Op.or]:[
                     {goodscas:keywords},
@@ -31,9 +31,8 @@ module.exports = {
             limit,
             raw: true
         })
-        console.log(res);
         return {
-            rows: res,
+            rows: res.rows,
             total: res.count
         }
     },

@@ -1,11 +1,19 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow,ipcMain,Menu } = require('electron')
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  Menu
+} = require('electron')
 const path = require('path')
+const {
+  getOne
+} = require('./db/mysql/model/goodsModel')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   Menu.setApplicationMenu(null)
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -15,14 +23,15 @@ function createWindow () {
       nodeIntegration: true
     }
   })
-  
+
   mainWindow.loadFile('index.html')
   mainWindow.webContents.openDevTools()
 
 
   //监听搜索(
-  ipcMain.on('search',(e,info)=>{
-    console.log(info);
+  ipcMain.on('search', async (e, info) => {
+    const goods = await getOne(info)
+    console.log(goods);
   })
 
   // Emitted when the window is closed.

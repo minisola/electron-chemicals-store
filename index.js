@@ -1,18 +1,15 @@
 const {
-  ipcRender
+  ipcRenderer
 } = require('electron')
-const {
-  getOne
-} = require('./db/mysql/model/goodsModel')
 
 window.addEventListener('DOMContentLoaded', () => {
   const $form = document.querySelector('form')
-  const keywords = document.querySelector('input').value.trim()
-
   $form.addEventListener('submit', function (event) {
+    const keywords = document.querySelector('input').value.trim()
     event.preventDefault()
+    console.log(keywords);
     if (keywords) {
-      ipcRender.send('search', keywords)
+      ipcRenderer.send('search', keywords)
     } else {
       alert('请填写搜索关键词')
     }
@@ -20,6 +17,6 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
 
-  getOne('54-06-8')
+  // getOne('54-06-8')
 
 })
