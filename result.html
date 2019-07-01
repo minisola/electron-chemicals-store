@@ -13,6 +13,7 @@
     <div class="web_store">
         <!-- content -->
         <div class="am-g web_section ">
+            
         </div>
     </div>
     <div class="footer footer_page">
@@ -23,55 +24,6 @@
         </div>
     </div>
     <script type="text/template" id="content">
-        <$ if (data) { $>
-        <div class="container" style="width:1000px;min-width:1000px">
-                <div class="result-list">
-                    <div class="title result_tab">
-                        <div class="result_tab_name">
-                            查询结果 :  <$ data.goodsname ? data.goodsname  : '无' $>
-                        </div>
-                        <span style="display:none" id="pdtName"><$ data.goodsname $></span>
-                    </div>
-                    <div class="info">
-                            <$ if (data.goodsname) { $>
-                                <h3 class="am-text-center">无此产品,请检查关键词重试</h3>
-                                <$ }else{ $>
-                        <div class="am-g">
-                            <div class="am-u-sm-12 am-fr">
-                                <div class="info-line am-fr">
-                                    <div>
-                                        <label for="">CAS# <span>:</span>
-                                        </label>
-                                        <span id="pdtCas"><$ data.goodscas $></span>
-                                    </div>
-                                    <div>
-                                        <label for="">MDL# <span>:</span></label>
-                                        <span id="pdtMdl"><$ data.mdl $></span>
-                                    </div>
-                                    <div>
-                                            <label for="">分子式 <span>:</span></label>
-                                        <span id="pdtSumformula"><$ data.sumformula $></span>
-                                    </div>
-                                    <div>
-                                            <label for="">分子量 <span>:</span></label>
-                                        <span id="pdtMulecularWeight"><$ data.mulecularWeight $></span>
-                                    </div>
-                                </div>
-                                <div class="am-fr">
-                                   <a id="img_open" title="查看大图" href="<$ data.showimg $>" style="display:block">
-                                    <img id="showimg" src="<$ data.showimg $>" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <$ } $>
-                    </div>
-                    <div class="list-detail">
-
-                    </div>
-                </div>
-            </div>
-            <$ } $>
     </script>
     <script type="text/template" id="temp">
         <$ if (data) { $>

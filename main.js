@@ -3,7 +3,8 @@ const {
   app,
   BrowserWindow,
   ipcMain,
-  Menu
+  Menu,
+  dialog 
 } = require('electron')
 const path = require('path')
 const {
@@ -23,13 +24,26 @@ function init() {
 
   //监听搜索(
   ipcMain.on('search', async (e, info) => {
+    const goods = await getOne(info).catch(err=>{
+      let errString = err.toString()
+
+      if(errString.includes('denied')){
+        errString = '数据库密码错误,请重新输入账号和密码'
+        e.sender.send('reset')
+      }else{
+        errString = '数据库连接失败...'
+      }
+      dialog.showMessageBox({
+        error:'error',
+        message:errString
+      })
+    })
+    if(!goods) return
     const resultWindow = new CreateWindow({
       parent: mainWindow,
       fileUri: 'result.html'
     })
     resultWindow.webContents.openDevTools()
-
-    const goods = await getOne(info)
     resultWindow.webContents.on('did-finish-load', function(){
       this.send('resultInfo', goods);
   });
@@ -39,6 +53,11 @@ function init() {
     mainWindow = null
   })
 }
+
+//监听关闭
+ipcMain.on('quit',()=>{
+  app.quit()
+})
 
 app.on('ready', init)
 

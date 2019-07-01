@@ -7,21 +7,15 @@
     "start": "nodemon --watch . --exec npm run dev",
     "dev": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^5.0.5"
   },
   "dependencies": {
-    "dayjs": "^1.8.12",
+    "electron-store": "^4.0.0",
+    "layer": "^0.1.0",
+    "mysql2": "^1.6.5",
     "sequelize": "^5.2.8"
   }
 }
