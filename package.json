@@ -5,17 +5,76 @@
   "main": "main.js",
   "scripts": {
     "start": "nodemon --watch . --exec npm run dev",
-    "dev": "electron ."
+    "dev": "electron .",
+    "build":"build"
   },
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "minisola",
   "devDependencies": {
-    "electron": "^5.0.5"
+    "electron": "^5.0.5",
+    "electron-builder": "^20.44.4"
   },
   "dependencies": {
     "electron-store": "^4.0.0",
     "layer": "^0.1.0",
     "mysql2": "^1.6.5",
     "sequelize": "^5.2.8"
+  },
+  "build": {
+    "appId": "org.lostsakura.chemicals-store",
+    "asar": true,
+    "files": [
+      "**/*",
+      "!docs${/*}",
+      "!node_modules/@paulcbetts/cld/deps/cld${/*}"
+    ],
+    "copyright": "©2019 lostsakura Inc.",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "dmg": {
+      "background": "build/appdmg.png",
+      "icon": "build/icon.icns",
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 500,
+        "height": 500
+      }
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis-web",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}-Web-Setup-${version}.${ext}",
+      "publisherName": "lostsakura Inc."
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "perMachine": false
+    },
+    "electronDownload": {
+      "cache": "cache"
+    }
   }
 }

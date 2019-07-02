@@ -40,6 +40,8 @@ function init() {
     })
     if(!goods) return
     const resultWindow = new CreateWindow({
+      width:'800',
+      height:'800',
       parent: mainWindow,
       fileUri: 'result.html'
     })

@@ -1,2 +1,4 @@
 node_modules
 db/mysql/mysql.js
+cache
+dist
