@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="info">
                     ${d.goodsname ? '' : '<h3 class="am-text-center">无此产品,请检查关键词重试</h3>'}
-                                <div class="am-g" ${d.goodsname ? '' : 'style="diplay:none !important"'}>
+                                <div class="am-g" ${d.goodsname ? '' : 'style="display:none !important"'}>
                                     <div class="am-u-sm-12 am-fr">
                                         <div class="info-line am-fr">
                                             <div>

@@ -29,6 +29,7 @@ module.exports = {
             Mysql = null
             store.set('reset',0)
         }
+
         if (!Mysql) {
             const {account,password} = store.get('account')
             Mysql = new Sequelize(`mysql://${account}:${password}@localhost:3306/test`);

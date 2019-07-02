@@ -25,6 +25,7 @@ function init() {
   //监听搜索(
   ipcMain.on('search', async (e, info) => {
     const goods = await getOne(info).catch(err=>{
+
       let errString = err.toString()
 
       if(errString.includes('denied')){
@@ -39,6 +40,13 @@ function init() {
       })
     })
     if(!goods) return
+    if(!goods.rows.length){
+      dialog.showMessageBox({
+        error:'info',
+        message:'无此产品,请检查关键词重试'
+      })
+      return
+    }
     const resultWindow = new CreateWindow({
       width:'800',
       height:'800',
@@ -83,6 +91,7 @@ class CreateWindow extends BrowserWindow {
       width: 600,
       height: 600,
       show:false,
+      icon:'build/icon.ico',
       webPreferences: {
         nodeIntegration: true
       }

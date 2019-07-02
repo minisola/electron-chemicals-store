@@ -9,10 +9,11 @@ const store = new Store();
 
 const account = store.get('account')
 
-if(!account) getDbInfo()
+
 
 //重置账号密码
 ipcRenderer.on('reset',function () {
+  store.delete('account')
   store.set('reset',1)
   getDbInfo()
 })
@@ -54,11 +55,15 @@ function saveAccount (data){
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+
+    setTimeout(() => {
+      if(!account) getDbInfo()
+    }, 500);
+
   const $form = document.querySelector('form')
   $form.addEventListener('submit', function (event) {
     const keywords = document.querySelector('input').value.trim()
     event.preventDefault()
-    console.log(keywords);
     if (keywords) {
       ipcRenderer.send('search', keywords)
     } else {
