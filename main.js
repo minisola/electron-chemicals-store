@@ -20,8 +20,6 @@ function init() {
     fileUri: 'index.html'
   })
 
-  mainWindow.webContents.openDevTools()
-
   //监听搜索(
   ipcMain.on('search', async (e, info) => {
     const goods = await getOne(info).catch(err=>{
@@ -53,7 +51,6 @@ function init() {
       parent: mainWindow,
       fileUri: 'result.html'
     })
-    resultWindow.webContents.openDevTools()
     resultWindow.webContents.on('did-finish-load', function(){
       this.send('resultInfo', goods);
   });
@@ -91,7 +88,6 @@ class CreateWindow extends BrowserWindow {
       width: 600,
       height: 600,
       show:false,
-      icon:'build/icon.ico',
       webPreferences: {
         nodeIntegration: true
       }
@@ -105,6 +101,7 @@ class CreateWindow extends BrowserWindow {
     this.init()
   }
   init() {
+    this.setIcon('build/icon.ico')
     this.loadFile(this.fileUri)
     this.once('ready-to-show',()=>{
       this.show()

@@ -15,18 +15,12 @@
   },
   "dependencies": {
     "electron-store": "^4.0.0",
-    "layer": "^0.1.0",
     "mysql2": "^1.6.5",
     "sequelize": "^5.2.8"
   },
   "build": {
     "appId": "org.lostsakura.chemicals-store",
     "asar": true,
-    "files": [
-      "**/*",
-      "!docs${/*}",
-      "!node_modules/@paulcbetts/cld/deps/cld${/*}"
-    ],
     "copyright": "©2019 lostsakura Inc.",
     "mac": {
       "category": "public.app-category.productivity",
@@ -59,8 +53,7 @@
         {
           "target": "nsis-web",
           "arch": [
-            "x64",
-            "ia32"
+            "x64"
           ]
         }
       ],
