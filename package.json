@@ -27,7 +27,7 @@
       "artifactName": "${productName}-${version}-${arch}.${ext}"
     },
     "dmg": {
-      "background": "build/appdmg.png",
+      "background": "build/appdmg.jpg",
       "icon": "build/icon.icns",
       "iconSize": 100,
       "contents": [
