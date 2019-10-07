@@ -3,11 +3,8 @@ const {
     Sequelize
 } = require('sequelize')
 
-const Store = require('electron-store');
-const store = new Store();
-
-let Mysql = null
 let Goods = null
+let Mysql = null
 
 module.exports = {
     async getList(page = 1, rows, keywords) {
@@ -24,19 +21,14 @@ module.exports = {
         }
     },
     async getOne(keywords = '') {
-        const reset = store.get('reset')
-        if(reset){
-            Mysql = null
-            store.set('reset',0)
-        }
+        Mysql = require('../mysql')
+        Goods = Mysql.import('../schema/goods');
 
-        if (!Mysql) {
-            const {account,password} = store.get('account')
-            Mysql = new Sequelize(`mysql://${account}:${password}@localhost:3306/hopschem`);
-            Goods = Mysql.import('../schema/t_goods_ch');
-        }
         const limit = 10
         const res = await Goods.findAndCountAll({
+            order: [
+                ['id', 'DESC']
+              ],
             where: {
                 [Op.or]: [{
                         goodsname: keywords

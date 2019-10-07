@@ -25,20 +25,35 @@
       </div>
     </div>
   </div>
-  <div class="footer footer_page">
+
+  <div class="dialog-reset-hook" style="display: none">
+    <div class="am-g" style="padding:20px 30px 0 30px">
+      <div class=" col-md-8 col-sm-centered">
+        <form class="am-form">
+          <div class="am-form-set">
+              <input type="text" name="server" class="am-input-sm" placeholder="请输入服务器地址">
+              <input type="number" name="port" class="am-input-sm" placeholder="请输入端口号">
+            <input type="text" name="account" class="am-input-sm" placeholder="请输入账号">
+            <input type="password" name="password" class="am-input-sm" placeholder="请输入密码">
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
+
+
   <script>
     if (typeof module === 'object') {
-        window.module = module;
-        module = undefined;
+      window.module = module;
+      module = undefined;
     }
-</script>
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/layer.js"></script>
-<script type="text/javascript" src="index.js"></script>
-<script>
+  </script>
+  <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/js/layer.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <script>
     if (window.module) module = window.module;
-</script>
+  </script>
 </body>
 
 </html>

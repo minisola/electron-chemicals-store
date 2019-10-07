@@ -29,35 +29,35 @@ window.addEventListener('DOMContentLoaded', () => {
                                     <div class="am-u-sm-12 am-fr">
                                         <div class="info-line am-fr">
                                             <div>
-                                                <label for="">CAS# <span>:</span>
+                                                <label class="am-text-right" for="">CAS&nbsp;<span>:</span>
                                                 </label>
                                                 <span id="pdtCas">
                                                 ${d.goodscas}
                                                 </span>
                                             </div>
                                             <div>
-                                                <label for="">MDL# <span>:</span></label>
+                                                <label class="am-text-right" for="">MDL&nbsp;<span>:</span></label>
                                                 <span id="pdtMdl">
                                                 ${d.mdl}
                                                 </span>
                                             </div>
                                             <div>
-                                                <label for="">分子式 <span>:</span></label>
+                                                <label class="am-text-right" for="">分子式&nbsp;<span>:</span></label>
                                                 <span id="pdtSumformula">
                                                 ${d.sumformula}
                                                 </span>
                                             </div>
                                             <div>
-                                                <label for="">分子量 <span>:</span></label>
+                                                <label class="am-text-right" for="">分子量&nbsp;<span>:</span></label>
                                                 <span id="pdtMulecularWeight">
                                                 ${d.mulecularWeight}
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="am-fr">
-                                            <a id="img_open" title="查看大图" href="http://hopschem.com/static/${d.showimg}"
+                                            <a id="img_open" title="查看大图" href="http://hopschem.com/assets/${d.showimg}"
                                                 style="display:block">
-                                                <img id="showimg" src="http://hopschem.com/static/${d.showimg}" alt="">
+                                                <img id="showimg" src="http://hopschem.com/assets/${d.showimg}" alt="">
                                             </a>
                                         </div>
                                     </div>

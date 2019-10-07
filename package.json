@@ -6,10 +6,11 @@
   "scripts": {
     "start": "nodemon --watch . --exec npm run dev",
     "dev": "electron .",
-    "build":"build"
+    "build": "build"
   },
   "author": "minisola",
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "electron": "^5.0.5",
     "electron-builder": "^20.44.4"
   },
