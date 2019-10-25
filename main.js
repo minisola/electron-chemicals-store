@@ -4,15 +4,17 @@ const {
   BrowserWindow,
   ipcMain,
   Menu,
-  dialog 
+  dialog
 } = require('electron')
 
 const {
   getOne
 } = require('./db/mysql/model/goodsModel')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let orderWindow
 
 function init() {
   // Create the browser window.
@@ -41,54 +43,78 @@ function init() {
           })
         }
       }]
+    },{
+      label:"订单管理",
+      submenu: [{
+        label: '订单管理',
+        click:function () {
+          if (orderWindow) return 
+          orderWindow = new CreateWindow({
+            width:'800',
+            height:'800',
+            fileUri: 'order.html',
+            autoHideMenuBar:true
+          })
+        if(process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
+
+        }
+      }]
     }]
   })
 
- 
+
+  var orderWindow = new CreateWindow({
+    width: '1200',
+    height: '600',
+    fileUri: './order/order.html',
+    autoHideMenuBar: true
+  })
+  if (process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
+
 
 
   // if(process.env.NODE_ENV === 'dev') mainWindow.openDevTools()
 
   //监听搜索(
   ipcMain.on('search', async (e, info) => {
-    const goods = await getOne(info).catch(err=>{
+    const goods = await getOne(info).catch(err => {
 
       let errString = err.toString()
       console.log(errString);
 
-      if(errString.includes('denied')){
+      if (errString.includes('denied')) {
         errString = '数据库密码错误,请重新输入账号和密码'
         e.sender.send('reset')
-      }else{
+      } else {
         errString = '数据库连接失败...'
       }
       dialog.showMessageBox({
-        error:'error',
-        message:errString
+        error: 'error',
+        message: errString
       })
     })
-    if(!goods) return
-    if(!goods.rows.length){
+    if (!goods) return
+    if (!goods.rows.length) {
       dialog.showMessageBox({
-        error:'info',
-        message:'无此产品,请检查关键词重试'
+        error: 'info',
+        message: '无此产品,请检查关键词重试'
       })
       return
     }
     const resultWindow = new CreateWindow({
-      width:'800',
-      height:'800',
+      width: '800',
+      height: '800',
       parent: mainWindow,
       remoteURL: 'result.html',
-      autoHideMenuBar:true
+      autoHideMenuBar: true
     })
 
     // 2-methyl-7-oxo-4H,7H-[1,2,4]triazolo[1,5-a]pyrimidine-6-carboxylic acid
-    resultWindow.webContents.on('did-finish-load', function(){
+    resultWindow.webContents.on('did-finish-load', function () {
       this.send('resultInfo', goods);
-  });
+    });
 
-  if(process.env.NODE_ENV === 'dev') resultWindow.openDevTools()
+    if (process.env.NODE_ENV === 'dev') resultWindow.openDevTools()
 
   })
 
@@ -98,7 +124,7 @@ function init() {
 }
 
 //监听关闭
-ipcMain.on('quit',()=>{
+ipcMain.on('quit', () => {
   app.quit()
 })
 
@@ -119,15 +145,15 @@ app.on('activate', function () {
  */
 class CreateWindow extends BrowserWindow {
   constructor(params = {}) {
-    if(params.menus){
+    if (params.menus) {
       const menu = Menu.buildFromTemplate(params.menus)
       Menu.setApplicationMenu(menu)
     }
     const defaultConfig = {
       width: 600,
       height: 600,
-      show:false,
-      icon:'build/icon.png',
+      show: false,
+      icon: 'build/icon.png',
       webPreferences: {
         nodeIntegration: true
       }
@@ -142,9 +168,9 @@ class CreateWindow extends BrowserWindow {
     this.init()
   }
   init() {
-    if(this.fileUri) this.loadFile(this.fileUri)
-    if(this.remoteURL) this.loadURL(this.remoteURL)
-    this.once('ready-to-show',()=>{
+    if (this.fileUri) this.loadFile(this.fileUri)
+    if (this.remoteURL) this.loadURL(this.remoteURL)
+    this.once('ready-to-show', () => {
       this.show()
     })
   }
