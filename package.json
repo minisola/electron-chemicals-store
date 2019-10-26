@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "electron-store": "^4.0.0",
+    "fs-extra": "^8.1.0",
     "mysql2": "^1.6.5",
     "nedb": "^1.8.0",
     "sequelize": "^5.2.8"

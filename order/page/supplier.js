@@ -6,7 +6,7 @@ module.exports = (db) => {
     function loadList(callback) {
         $("#dataTable tbody").html("")
         db.find({
-            dataType: 'customer'
+            dataType: 'supplier'
         }).sort({
             createTime: -1
         }).exec((err, ret) => {
@@ -34,24 +34,14 @@ module.exports = (db) => {
             callback && callback()
         });
     }
-    //清空
-    $("#customerAddDialog").off("hidden.bs.modal").on("hidden.bs.modal",function () {
-        const $dialog = $("#customerAddDialog")
-        $dialog.find("[name=customerName]").val(null)
-        $dialog.find("[name=customerRemark]").val(null)
-        current = null
-        console.log(current);
-    })
-
-
     //新增客戶
-    $('#customerAdd').show().off('click').on('click', function () {
-        $("#customerAddDialog").modal().find('.modal-title').text('新增客户')
+    $('#supplierAdd').show().off('click').on('click', function () {
+        $("#supplierAddDialog").modal().find('.modal-title').text('新增供应商')
     })
     // 新增保存客户
-    $('#customerSave').off('click').on('click', function () {
-        const name = $("#customerName").val().trim()
-        const remark = $("#customerRemark").val().trim()
+    $('#supplierSave').off('click').on('click', function () {
+        const name = $("#supplierName").val().trim()
+        const remark = $("#supplierRemark").val().trim()
         if (!name) {
             return layer.msg("请输入名称")
         }
@@ -69,7 +59,7 @@ module.exports = (db) => {
             return
         }
         db.insert({
-            dataType: "customer",
+            dataType: "supplier",
             name: name,
             remark: remark,
             createTime: new Date().getTime()
@@ -88,10 +78,10 @@ module.exports = (db) => {
     function edit() {
         const index = $(this).data("index")
         current = list[index]
-        const $dialog = $("#customerAddDialog")
-        $dialog.find("[name=customerName]").val(current.name)
-        $dialog.find("[name=customerRemark]").val(current.remark)
-        $dialog.modal().find('.modal-title').text('编辑客户')
+        const $dialog = $("#supplierAddDialog")
+        $dialog.find("[name=supplierName]").val(current.name)
+        $dialog.find("[name=supplierRemark]").val(current.remark)
+        $dialog.modal().find('.modal-title').text('编辑供应商')
     }
 
     function del() {
@@ -109,7 +99,11 @@ module.exports = (db) => {
         if (err) return layer.msg("err")
         layer.msg(msg || "保存成功")
         loadList(bindBtns)
-        $('#customerAddDialog').modal('hide')
+        $('#supplierAddDialog').modal('hide')
+        const $dialog = $("#supplierAddDialog")
+        $dialog.find("[name=supplierName]").val(null)
+        $dialog.find("[name=supplierRemark]").val(null)
+        current = null
     }
 
 }

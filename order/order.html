@@ -35,9 +35,9 @@
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
           <div class="row justify-content-between" style="width: 100%;">
             <div class="col-6">
-              <nav class="nav nav-pills nav-justified">
-                <a class="nav-link " href="#">订单管理</a>
-                <a class="nav-link active" href="#">数据维护</a>
+              <nav class="nav nav-pills nav-justified" id="topNav">
+                <a class="nav-link active" href="#">订单管理</a>
+                <a class="nav-link " href="#">数据维护</a>
               </nav>
             </div>
             <div class="col-6 text-right">
@@ -56,27 +56,46 @@
           </div>
 
         </nav>
-        <!-- End of Topbar -->
-
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid" id="orderContainer">
+          <div class="row">
+            <div class="col-sm-12">
+              嘿嘿
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid" id="maintain" style="display: none;">
           <div class="row">
             <div class="col-sm-2 col-xs-3">
-              <div id="sider-nav" class="list-group">
-                <a class="list-group-item list-group-item-action active" href="#list-item-1">备份导出</a>
+              <div id="siderNav" class="list-group">
+                <a class="list-group-item list-group-item-action active" href="#list-item-1">备份/恢复</a>
                 <a class="list-group-item list-group-item-action" href="#list-item-1">客户</a>
                 <a class="list-group-item list-group-item-action" href="#list-item-2">快递公司</a>
                 <a class="list-group-item list-group-item-action" href="#list-item-3">供应商</a>
               </div>
             </div>
             <div class="col-sm-10 col-xs-9">
-              <h3 class="h3 mb-2 text-gray-800">信息管理
+              <h3 class="h3 mb-2 text-gray-800" id="tableTitle">
+                <span>数据维护</span>  
                 &nbsp;
                 <button style="display: none;"
                  type="button" class="btn btn-sm btn-primary" id="customerAdd">新增</button>
+                 <button style="display: none;"
+                 type="button" class="btn btn-sm btn-primary" id="expressAdd">新增</button>
+                 <button style="display: none;"
+                 type="button" class="btn btn-sm btn-primary" id="supplierAdd">新增</button>
               </h3>
 
-              <div class="card shadow mb-4">
+              <div class="card shadow mb-4" id="backupContainer">
+                  <div class="card-body">
+                      <p>备份和恢复本地数据库</p>
+                      <button class="btn btn-sm btn-primary" id="backupHandle">手动备份</button>
+                      <button class="btn btn-sm btn-success" id="recoverHandle">手动恢复</button>
+                    </div>
+              </div>
+
+
+              <div class="card shadow mb-4" id="tableContainer" style="display: none;">
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -143,7 +162,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">新增客户</h5>
+        <h5 class="modal-title">新增快递</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -162,7 +181,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary">保存</button>
+        <button type="button" class="btn btn-primary" id="expressSave">保存</button>
       </div>
     </div>
   </div>
@@ -173,7 +192,7 @@ aria-hidden="true">
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title">新增客户</h5>
+      <h5 class="modal-title">新增供应商</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -181,7 +200,7 @@ aria-hidden="true">
     <div class="modal-body">
       <form>
         <div class="form-group">
-          <label for="customerName" class="col-form-label">客户名称:</label>
+          <label for="customerName" class="col-form-label">供应商名称:</label>
           <input type="text" name="supplierName" autocomplete="off" class="form-control" id="supplierName">
         </div>
         <div class="form-group">
@@ -192,7 +211,7 @@ aria-hidden="true">
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-      <button type="button" class="btn btn-primary">保存</button>
+      <button type="button" class="btn btn-primary"  id="supplierSave">保存</button>
     </div>
   </div>
 </div>
