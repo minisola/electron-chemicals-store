@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "electron-store": "^4.0.0",
+    "flatpickr": "^4.6.3",
     "fs-extra": "^8.1.0",
     "mysql2": "^1.6.5",
     "nedb": "^1.8.0",

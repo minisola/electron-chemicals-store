@@ -68,6 +68,14 @@ utils.recover = (callback) => {
     }
 }
 
+utils.makSelect = (name,list)=>{
+    let html = ` <select class="custom-select d-block w-100">`
+    const options = (list.map(el=>`<option value="${el.name}">${el.name}</option>`)).join(',')
+    html +=options
+    html+=`</select>`
+    return html
+}
+
 utils.loading = (text, params) => {
     const options = Object.assign({}, {
         icon: 16,

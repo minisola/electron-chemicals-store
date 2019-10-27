@@ -23,18 +23,31 @@ let db = new nedb({
 window.addEventListener('DOMContentLoaded', () => {
   console.log('start');
 
+  //初始化默认数据
+  db.find({
+    dataType: 'customer'
+  }).sort({
+      createTime: -1
+  }).exec((err, ret) => {
+    if(!err) localStorage.customer = JSON.stringify(ret)
+  })
+  db.find({
+    dataType: 'express'
+  }).sort({
+      createTime: -1
+  }).exec((err, ret) => {
+    if(!err) localStorage.express = JSON.stringify(ret)
+  })
+  db.find({
+    dataType: 'supplier'
+  }).sort({
+      createTime: -1
+  }).exec((err, ret) => {
+    if(!err) localStorage.supplier = JSON.stringify(ret)
+  })
 
+  //初始化订单表
   require("./page/index")
-
-  const formHtml = document.querySelector("#orderForm").innerHTML
-
-  setTimeout(() => {
-    layer.open({
-      type:1,
-      content:require('./orderForm.js'),
-      area:['90%','90%']
-    })
-  }, 1000);
 
   //绑定备份按钮
   $("#backupHandle").click(function () {

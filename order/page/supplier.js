@@ -11,6 +11,7 @@ module.exports = (db) => {
             createTime: -1
         }).exec((err, ret) => {
             if (ret && ret.length) {
+                localStorage.supplier = JSON.stringify(ret)
                 list = ret
                 let html = ""
                 ret.forEach((el, i) => {
