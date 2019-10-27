@@ -24,6 +24,18 @@ window.addEventListener('DOMContentLoaded', () => {
   console.log('start');
 
 
+  require("./page/index")
+
+  const formHtml = document.querySelector("#orderForm").innerHTML
+
+  setTimeout(() => {
+    layer.open({
+      type:1,
+      content:require('./orderForm.js'),
+      area:['90%','90%']
+    })
+  }, 1000);
+
   //绑定备份按钮
   $("#backupHandle").click(function () {
     backup(err=>{
@@ -60,7 +72,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const maintain = $("#maintain");
     const orderContainer = $("#orderContainer");
     $(this).addClass('active').siblings().removeClass('active')
-    console.log(index);
     switch (index) {
       case 0:
           orderContainer.show()
@@ -105,11 +116,6 @@ window.addEventListener('DOMContentLoaded', () => {
       default:
         break;
     }
-
-
-
-
-
   })
 
 })

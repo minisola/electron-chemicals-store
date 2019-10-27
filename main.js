@@ -35,7 +35,7 @@ function init() {
         label: '登录后台',
         click:function () {
           const remoteWindow = new CreateWindow({
-            width:'800',
+            width:'880',
             height:'800',
             title:"合晶化工",
             remoteURL: 'http://hopschem.com:8001',
@@ -50,7 +50,7 @@ function init() {
         click:function () {
           if (orderWindow) return 
           orderWindow = new CreateWindow({
-            width:'800',
+            width:'880',
             height:'800',
             fileUri: 'order.html',
             autoHideMenuBar:true
@@ -63,12 +63,13 @@ function init() {
   })
 
 
-  var orderWindow = new CreateWindow({
-    width: '1200',
+  const orderWindow = new CreateWindow({
+    width: '880',
     height: '600',
     fileUri: './order/order.html',
     autoHideMenuBar: true
   })
+  orderWindow.setSize(880,600)
   if (process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
 
 
@@ -102,7 +103,7 @@ function init() {
       return
     }
     const resultWindow = new CreateWindow({
-      width: '800',
+      width: '880',
       height: '800',
       parent: mainWindow,
       remoteURL: 'result.html',

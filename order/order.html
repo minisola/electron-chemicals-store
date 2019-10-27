@@ -40,19 +40,6 @@
                 <a class="nav-link " href="#">数据维护</a>
               </nav>
             </div>
-            <div class="col-6 text-right">
-              <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <div class="input-group">
-                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                    aria-label="Search" aria-describedby="basic-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                      <i class="fas fa-search fa-sm"></i>
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
           </div>
 
         </nav>
@@ -60,7 +47,41 @@
         <div class="container-fluid" id="orderContainer">
           <div class="row">
             <div class="col-sm-12">
-              嘿嘿
+              <button type="button" class="btn btn-sm btn-primary mb-2" id="orderAdd">新增</button>
+              <div id="orderTalbe">
+                <vxe-table ref="xTable" size="small" border resizable highlight-hover-row show-overflow
+                  :data="tableData" :edit-config="{trigger: 'manual', mode: 'row'}">
+                  <vxe-table-column type="index" show-header-overflow width="40"></vxe-table-column>
+                  <vxe-table-column field="date" show-header-overflow width="120" title="日期"></vxe-table-column>
+                  <vxe-table-column field="name" show-header-overflow width="180" title="品名"></vxe-table-column>
+                  <vxe-table-column field="cas" show-header-overflow width="150" title="CAS#"></vxe-table-column>
+                  <vxe-table-column field="num" show-header-overflow width="120" title="数量"></vxe-table-column>
+                  <vxe-table-column field="income" show-header-overflow width="120" title="进项"></vxe-table-column>
+                  <vxe-table-column field="payment" show-header-overflow width="120" title="货款"></vxe-table-column>
+                  <vxe-table-column field="exchange" show-header-overflow width="120" title="购汇"></vxe-table-column>
+                  <vxe-table-column field="extra" show-header-overflow width="120" title="杂费"></vxe-table-column>
+                  <vxe-table-column field="fare" show-header-overflow width="120" title="运费"></vxe-table-column>
+                  <vxe-table-column field="tariff" show-header-overflow width="120" title="关税"></vxe-table-column>
+                  <vxe-table-column field="inputTax" show-header-overflow width="120" title="进项税"></vxe-table-column>
+                  <vxe-table-column field="outptTax" show-header-overflow width="120" title="出项税"></vxe-table-column>
+                  <vxe-table-column field="bankCharges" show-header-overflow width="120" title="银行手续费">
+                  </vxe-table-column>
+                  <vxe-table-column field="customer" show-header-overflow width="120" title="采购商"></vxe-table-column>
+                  <vxe-table-column field="supplier" show-header-overflow width="120" title="供应商"></vxe-table-column>
+                  <vxe-table-column field="remark" show-header-overflow width="120" title="备注"></vxe-table-column>
+                  <vxe-table-column field="paid" show-header-overflow width="80" title="是否付款"></vxe-table-column>
+                  <vxe-table-column field="expressNum" show-header-overflow width="120" title="快递单号"></vxe-table-column>
+                  <vxe-table-column field="express" show-header-overflow width="120" title="快递公司"></vxe-table-column>
+                  <vxe-table-column field="expressDate" show-header-overflow width="120" title="快递日期">
+                  </vxe-table-column>
+                  <vxe-table-column title="操作" show-header-overflow fixed="right" width="160">
+                    <template v-slot="{ row }">
+                      <vxe-button @click="editRowEvent(row)">编辑</vxe-button>
+                      <vxe-button @click="editRowEvent(row)">删除</vxe-button>
+                    </template>
+                  </vxe-table-column>
+                </vxe-table>
+              </div>
             </div>
           </div>
         </div>
@@ -76,22 +97,19 @@
             </div>
             <div class="col-sm-10 col-xs-9">
               <h3 class="h3 mb-2 text-gray-800" id="tableTitle">
-                <span>数据维护</span>  
+                <span>数据维护</span>
                 &nbsp;
-                <button style="display: none;"
-                 type="button" class="btn btn-sm btn-primary" id="customerAdd">新增</button>
-                 <button style="display: none;"
-                 type="button" class="btn btn-sm btn-primary" id="expressAdd">新增</button>
-                 <button style="display: none;"
-                 type="button" class="btn btn-sm btn-primary" id="supplierAdd">新增</button>
+                <button style="display: none;" type="button" class="btn btn-sm btn-primary" id="customerAdd">新增</button>
+                <button style="display: none;" type="button" class="btn btn-sm btn-primary" id="expressAdd">新增</button>
+                <button style="display: none;" type="button" class="btn btn-sm btn-primary" id="supplierAdd">新增</button>
               </h3>
 
               <div class="card shadow mb-4" id="backupContainer">
-                  <div class="card-body">
-                      <p>备份和恢复本地数据库</p>
-                      <button class="btn btn-sm btn-primary" id="backupHandle">手动备份</button>
-                      <button class="btn btn-sm btn-success" id="recoverHandle">手动恢复</button>
-                    </div>
+                <div class="card-body">
+                  <p>备份和恢复本地数据库</p>
+                  <button class="btn btn-sm btn-primary" id="backupHandle">手动备份</button>
+                  <button class="btn btn-sm btn-success" id="recoverHandle">手动恢复</button>
+                </div>
               </div>
 
 
@@ -107,7 +125,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        
+
                       </tbody>
                     </table>
                   </div>
@@ -158,64 +176,64 @@
   </div>
   <!-- 新增快递公司 -->
   <div class="modal fade" id="expressAddDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">新增快递</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="customerName" class="col-form-label">快递名称:</label>
-            <input type="text" name="expressName" autocomplete="off" class="form-control" id="expressName">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">备注:</label>
-            <textarea class="form-control" name="expressRemark" id="expressRemark"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary" id="expressSave">保存</button>
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新增快递</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="customerName" class="col-form-label">快递名称:</label>
+              <input type="text" name="expressName" autocomplete="off" class="form-control" id="expressName">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">备注:</label>
+              <textarea class="form-control" name="expressRemark" id="expressRemark"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary" id="expressSave">保存</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- 新增供应商 -->
-<div class="modal fade" id="supplierAddDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">新增供应商</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="customerName" class="col-form-label">供应商名称:</label>
-          <input type="text" name="supplierName" autocomplete="off" class="form-control" id="supplierName">
+  <!-- 新增供应商 -->
+  <div class="modal fade" id="supplierAddDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新增供应商</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="form-group">
-          <label for="message-text" class="col-form-label">备注:</label>
-          <textarea class="form-control" name="supplierRemark" id="supplierRemark"></textarea>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="customerName" class="col-form-label">供应商名称:</label>
+              <input type="text" name="supplierName" autocomplete="off" class="form-control" id="supplierName">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">备注:</label>
+              <textarea class="form-control" name="supplierRemark" id="supplierRemark"></textarea>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-      <button type="button" class="btn btn-primary"  id="supplierSave">保存</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary" id="supplierSave">保存</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
 
 
 
@@ -223,11 +241,13 @@ aria-hidden="true">
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+  <script type="text/html" id="orderForm">
 
+  </script>
 
   <!-- Bootstrap core JavaScript-->
   <script src="js/jquery.min.js"></script>
-  <script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>
+  <script>if (typeof module === 'object') { window.jQuery = window.$ = module.exports; };</script>
   <script src="js/jquery-easing/jquery.easing.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/layer.js"></script>

@@ -1,10 +1,4 @@
-{"dataType":"customer","name":"asf34qr34","remark":"fd4324","createTime":1571992441785,"_id":"2t7nrrUyvDOx4MNY"}
-{"dataType":"customer","name":"asf34qr34","remark":"fd","createTime":1571992434526,"_id":"3mCXsSz35zhQcPJM"}
-{"dataType":"customer","name":"asf34qr34","remark":"fd4324","createTime":1571992441785,"_id":"CMDvIT4jLlWVFPQm"}
-{"dataType":"customer","name":"23","remark":"23234","createTime":1571989687255,"_id":"PvS0OUIeJXGLkFEa"}
-{"dataType":"customer","name":"asf34qr34","remark":"fd","createTime":1571992434526,"_id":"YMiwbfsjpqYFTR0T"}
-{"dataType":"customer","name":"asf34qr34","remark":"fd4324","createTime":1571992448662,"_id":"bB1gSahgUc2rPsuN"}
-{"dataType":"customer","name":"asf34qr34","remark":"fd4324","createTime":1571992448662,"_id":"bJW5JwPnLGleGsC6"}
-{"dataType":"customer","name":"asf34qr34","remark":"fd4324","createTime":1571992448662,"_id":"h3J3elkPAUQro9Ap"}
-{"dataType":"customer","name":"asf34qr34","remark":"fd4324","createTime":1571992441785,"_id":"iMJLhVLnb2amCh40"}
-{"dataType":"express","name":"43q5r4","remark":"325234","createTime":1571992437673,"_id":"vI1mzb5rKLWS8vaY"}
+{"dataType":"customer","name":"客户B","remark":"江苏省常州市天宁区竹林北路","createTime":1571989687255,"_id":"PvS0OUIeJXGLkFEa"}
+{"dataType":"customer","name":"客户A","remark":"fd","createTime":1571992434526,"_id":"YMiwbfsjpqYFTR0T"}
+{"dataType":"supplier","name":"供应商A","remark":"","createTime":1572072313089,"_id":"ffot5jD3HJvGU5Gd"}
+{"dataType":"express","name":"顺丰速运","remark":"12/kg","createTime":1571992437673,"_id":"vI1mzb5rKLWS8vaY"}
