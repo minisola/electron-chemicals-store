@@ -47,25 +47,18 @@
         <div class="container-fluid" id="orderContainer">
           <div class="row">
             <div class="col-sm-12">
-              <div id="orderTable">
-                        <div class="form-inline">
-                            <button type="button" class="btn btn-sm btn-primary mb-2" id="orderAdd">新增</button>
-                            <button type="button" class="btn btn-sm btn-secondary mb-2 float-right" @click="exportDataEvent">导出</button>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="text" class="form-control form-control-sm"  placeholder="全表搜索">
-                              </div>
-                        </div>
+              <button type="button" class="btn btn-sm btn-primary mb-2" id="orderAdd">新增</button>
+              <div id="orderTalbe">
                 <vxe-table 
                 size="small" 
                 border 
-                ref="order"
                 resizable 
                 highlight-hover-row 
                 :tooltip-config="{enterable: true}"
-                :span-method="spanMethod"
+                :tree-config="{children: 'goods',expandAll:true,trigger:'cell'}"
                   :data="tableData">
                   <vxe-table-column type="index" fixed='left' width="40"></vxe-table-column>
-                  <vxe-table-column field="date" fixed='left' width="120" title="日期"></vxe-table-column>
+                  <vxe-table-column field="date" fixed='left'  tree-node width="120" title="日期"></vxe-table-column>
                   <vxe-table-column field="name" show-overflow width="180" title="品名"></vxe-table-column>
                   <vxe-table-column field="cas"  width="150" title="CAS#"></vxe-table-column>
                   <vxe-table-column field="num"  width="120" title="数量"></vxe-table-column>
@@ -81,12 +74,10 @@
                   </vxe-table-column>
                   <vxe-table-column field="customer"  width="120" title="采购商"></vxe-table-column>
                   <vxe-table-column field="supplier"  width="120" title="供应商"></vxe-table-column>
-                  <vxe-table-column field="remark" show-overflow width="120" title="备注"></vxe-table-column>
+                  <vxe-table-column field="remark"  width="120" title="备注"></vxe-table-column>
                   <vxe-table-column field="paid"  width="80" title="是否付款"></vxe-table-column>
-                  <vxe-table-column field="abExpress"  width="120" title="国外快递公司"></vxe-table-column>
-                  <vxe-table-column field="abExpressNum"  width="120" title="国外快递单号"></vxe-table-column>
-                  <vxe-table-column field="express"  width="120" title="国内快递公司"></vxe-table-column>
-                  <vxe-table-column field="expressNum"  width="120" title="国内快递单号"></vxe-table-column>
+                  <vxe-table-column field="expressNum"  width="120" title="快递单号"></vxe-table-column>
+                  <vxe-table-column field="express"  width="120" title="快递公司"></vxe-table-column>
                   <vxe-table-column field="expressDate"  width="120" title="快递日期">
                   </vxe-table-column>
                   <vxe-table-column title="操作" fixed='right' show-overflow width="140">

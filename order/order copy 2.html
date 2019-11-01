@@ -47,55 +47,52 @@
         <div class="container-fluid" id="orderContainer">
           <div class="row">
             <div class="col-sm-12">
-              <div id="orderTable">
-                        <div class="form-inline">
-                            <button type="button" class="btn btn-sm btn-primary mb-2" id="orderAdd">新增</button>
-                            <button type="button" class="btn btn-sm btn-secondary mb-2 float-right" @click="exportDataEvent">导出</button>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="text" class="form-control form-control-sm"  placeholder="全表搜索">
-                              </div>
-                        </div>
-                <vxe-table 
-                size="small" 
-                border 
-                ref="order"
-                resizable 
-                highlight-hover-row 
-                :tooltip-config="{enterable: true}"
+              <button type="button" class="btn btn-sm btn-primary mb-2" id="orderAdd">新增</button>
+
+              <div id="orderTalbe">
+                <el-table 
+                size="small"
+                border
                 :span-method="spanMethod"
                   :data="tableData">
-                  <vxe-table-column type="index" fixed='left' width="40"></vxe-table-column>
-                  <vxe-table-column field="date" fixed='left' width="120" title="日期"></vxe-table-column>
-                  <vxe-table-column field="name" show-overflow width="180" title="品名"></vxe-table-column>
-                  <vxe-table-column field="cas"  width="150" title="CAS#"></vxe-table-column>
-                  <vxe-table-column field="num"  width="120" title="数量"></vxe-table-column>
-                  <vxe-table-column field="income"  width="120" title="进项"></vxe-table-column>
-                  <vxe-table-column field="payment"  width="120" title="货款"></vxe-table-column>
-                  <vxe-table-column field="exchange"  width="120" title="购汇"></vxe-table-column>
-                  <vxe-table-column field="extra"  width="120" title="杂费"></vxe-table-column>
-                  <vxe-table-column field="fare"  width="120" title="运费"></vxe-table-column>
-                  <vxe-table-column field="tariff"  width="120" title="关税"></vxe-table-column>
-                  <vxe-table-column field="inputTax"  width="120" title="进项税"></vxe-table-column>
-                  <vxe-table-column field="outputTax"  width="120" title="出项税"></vxe-table-column>
-                  <vxe-table-column field="bankCharges"  width="120" title="银行手续费">
-                  </vxe-table-column>
-                  <vxe-table-column field="customer"  width="120" title="采购商"></vxe-table-column>
-                  <vxe-table-column field="supplier"  width="120" title="供应商"></vxe-table-column>
-                  <vxe-table-column field="remark" show-overflow width="120" title="备注"></vxe-table-column>
-                  <vxe-table-column field="paid"  width="80" title="是否付款"></vxe-table-column>
-                  <vxe-table-column field="abExpress"  width="120" title="国外快递公司"></vxe-table-column>
-                  <vxe-table-column field="abExpressNum"  width="120" title="国外快递单号"></vxe-table-column>
-                  <vxe-table-column field="express"  width="120" title="国内快递公司"></vxe-table-column>
-                  <vxe-table-column field="expressNum"  width="120" title="国内快递单号"></vxe-table-column>
-                  <vxe-table-column field="expressDate"  width="120" title="快递日期">
-                  </vxe-table-column>
-                  <vxe-table-column title="操作" fixed='right' show-overflow width="140">
-                    <template v-slot="{ row }">
-                      <vxe-button @click="editRowEvent(row)">编辑</vxe-button>
-                      <vxe-button @click="delRowEvent(row)">删除</vxe-button>
+                  <el-table-column type="index" fixed width="40"></el-table-column>
+                  <el-table-column prop="date" fixed width="120" label="日期"></el-table-column>
+                  <el-table-column prop="name" resizable show-overflow width="180" label="品名"></el-table-column>
+                  <el-table-column prop="cas" resizable width="150" label="CAS#"></el-table-column>
+                  <el-table-column prop="num"  width="120" label="数量"></el-table-column>
+                  <el-table-column prop="income"  width="120" label="进项"></el-table-column>
+                  <el-table-column prop="payment"  width="120" label="货款"></el-table-column>
+                  <el-table-column prop="exchange"  width="120" label="购汇"></el-table-column>
+                  <el-table-column prop="extra"  width="120" label="杂费"></el-table-column>
+                  <el-table-column prop="fare"  width="120" label="运费"></el-table-column>
+                  <el-table-column prop="tariff"  width="120" label="关税"></el-table-column>
+                  <el-table-column prop="inputTax"  width="120" label="进项税"></el-table-column>
+                  <el-table-column prop="outputTax"  width="120" label="出项税"></el-table-column>
+                  <el-table-column prop="bankCharges"  width="120" label="银行手续费">
+                  </el-table-column>
+                  <el-table-column prop="customer" resizable  width="120" label="采购商"></el-table-column>
+                  <el-table-column prop="supplier" resizable  width="120" label="供应商"></el-table-column>
+                  <el-table-column prop="remark" resizable width="120" label="备注">
+                    <template slot-scope="scope">
+                      <div class="ellipsis">
+                        {{scope.row.remark}}
+                      </div>
                     </template>
-                  </vxe-table-column>
-                </vxe-table>
+                  </el-table-column>
+                  <el-table-column prop="paid"  width="80" label="是否付款"></el-table-column>
+                  <el-table-column prop="abExpressNum"  width="120" label="国外快递单号"></el-table-column>
+                  <el-table-column prop="abExpress"  width="120" label="国外快递公司"></el-table-column>
+                  <el-table-column prop="expressNum"  width="120" label="国内快递单号"></el-table-column>
+                  <el-table-column prop="express"  width="120" label="国内快递公司"></el-table-column>
+                  <el-table-column prop="expressDate"  width="120" label="快递日期">
+                  </el-table-column>
+                  <el-table-column label="操作" fixed="right" show-overflow width="120">
+                    <template slot-scope="scope">
+                      <button class="btn btn-sm btn-outline-primary" @click="editRowEvent(scope)">编辑</button>
+                      <button class="btn btn-sm btn-outline-danger" @click="delRowEvent(scope)">删除</button>
+                    </template>
+                  </el-table-column>
+                </el-table> 
               </div>
             </div>
           </div>
@@ -262,13 +259,19 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="js/jquery.min.js"></script>
-  <script>if (typeof module === 'object') { window.jQuery = window.$ = module.exports; };</script>
+  <script>
+    if (typeof module === 'object') {
+      window.jQuery = window.$ = module.exports;
+    };
+  </script>
   <script src="js/jquery-easing/jquery.easing.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/layer.js"></script>
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/elementui.js"></script>
   <script src="./order.js"></script>
 
 </body>

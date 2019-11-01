@@ -6,144 +6,7 @@ const {
 const dayjs = require('dayjs')
 
 
-const Vue =require('vue/dist/vue') 
-require('xe-utils')
-const VXETable =require('vxe-table/lib/index') 
-Vue.use(VXETable)
-
-let app = null
-
-function init(db) {
-
-  app = new Vue({
-    data:{
-      tableData:[]
-    },
-    created() {
-      this.loadList()
-    },
-    methods: {
-      loadList() {
-        db.find({
-          dataType: 'order'
-        }).sort({
-          date:1
-        }).exec((err, res) => {
-          if (!err) {
-            console.log(res);
-            let newList = []
-            res.forEach(el => {
-              // newList.push(el)
-              if (el.goods && el.goods.length) {
-                el.goods.forEach((goods, i) => {
-                  if (i === 0) {
-                    goods = Object.assign({}, el, goods)
-                    // //如果是第一个商品给予一个P值识别以便于合并单元格
-                    // goods.type = 'p'
-                  }
-                  goods._pid = el._id
-                  goods.date = dayjs(el.date).format('YYYY/MM/DD')
-                  newList.push(goods)
-                })
-              }
-            })
-            this.tableData = newList
-          }
-        })
-      },
-      exportDataEvent () {
-        this.$refs.order.exportData()
-      },
-      delRowEvent(row) {
-        layer.confirm("删除此条订单?", () => {
-          db.remove({
-            _id: row._pid
-          }, err => {
-            if (err) return layer.msg('err')
-            layer.msg("删除成功")
-            this.loadList()
-          })
-        })
-      },
-      editRowEvent(row) {
-        edit(db, this, row._pid)
-      },
-      spanMethod({
-        row,
-        column,
-        rowIndex,
-        columnIndex
-      }) {
-        const goodsNum = (row.goods && row.goods.length) || 0
-
-        function mergeColumn() {
-          if (goodsNum) {
-            return { rowspan: goodsNum, colspan:1 }
-          } else {
-            return { rowspan: 0, colspan:0 }
-          }
-        }
-
-        switch (columnIndex) {
-          case 1:
-            return mergeColumn()
-            break;
-          case 6:
-            return mergeColumn()
-            break;
-          case 7:
-            return mergeColumn()
-            break;
-          case 9:
-            return mergeColumn()
-            break;
-          case 10:
-            return mergeColumn()
-            break;
-          case 13:
-            return mergeColumn()
-            break;
-          case 14:
-            return mergeColumn()
-            break;
-          case 15:
-            return mergeColumn()
-            break;
-          case 17:
-            return mergeColumn()
-            break;
-          case 18:
-            return mergeColumn()
-            break;
-          case 19:
-            return mergeColumn()
-            break;
-          case 20:
-            return mergeColumn()
-            break;
-          case 21:
-            return mergeColumn()
-            break;
-            case 22:
-                return mergeColumn()
-                break;
-                case 23:
-                    return mergeColumn()
-                    break;
-          default:
-            return { rowspan: 1, colspan:1 }
-            break;
-        }
-      }
-    }
-
-
-  }).$mount("#orderTable")
-
-
-
-
-
+function init(db, table) {
 
   $("#orderAdd").on('click', function () {
     layer.open({
@@ -169,7 +32,7 @@ function init(db) {
 
           if (!err) {
             layer.msg("保存成功")
-            app.loadList()
+            table.loadList()
           } else {
             layer.msg(err)
           }
@@ -178,6 +41,8 @@ function init(db) {
       }
     })
   })
+
+
 }
 
 //绑定删除按钮事件
@@ -302,7 +167,7 @@ function edit(db,table,id) {
           layer.closeAll()
           if (!err) {
             layer.msg("保存成功")
-            app.loadList()
+            table.loadList()
           } else {
             layer.msg(err)
           }

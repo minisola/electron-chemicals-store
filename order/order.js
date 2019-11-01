@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   //初始化订单表
-  require("./page/index")
+  require("./page/index").init(db)
 
   //绑定备份按钮
   $("#backupHandle").click(function () {
