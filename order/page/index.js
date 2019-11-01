@@ -17,10 +17,71 @@ function init(db) {
 
   app = new Vue({
     data:{
-      tableData:[]
+      originData:[],
+      filterName:""
     },
     created() {
+      $(".order-table-container").height($('body').height()-150)
+      window.onresize = function () {
+        $(".order-table-container").height($('body').height()-150)
+      }
       this.loadList()
+       //设置高度
+    },
+    computed: {
+      tableData(){
+        const res = this.originData
+        let newList = []
+        res.forEach(el => {
+          // newList.push(el)
+          if (el.goods && el.goods.length) {
+            el.goods.forEach((goods, i) => {
+              if (i === 0) {
+                goods = Object.assign({}, el, goods)
+              }
+              goods._pid = el._id
+              newList.push(goods)
+            })
+          }
+        })
+        return newList
+      },
+      list () {
+        let filterName = this.filterName.toString().trim().toLowerCase()
+        if (filterName) {
+          let searchProps = ['cas', 'date', 'name', 'customer', 'supplier', 'remark']
+          let rest = this.originData.filter(order=>{
+            if(searchProps.some(key => (order[key]||"").toString().toLowerCase().indexOf(filterName) > -1)){
+              return true
+            }else{
+              const goods = order.goods || []
+                let filterGoods = goods.filter(g=>{
+                  if(searchProps.some(key => (g[key]||"").toString().toLowerCase().indexOf(filterName) > -1)){
+                    return true
+                  }else{
+                    return false
+                  }
+                })
+                if(filterGoods.length) return true
+                else return false
+            }
+          })
+          let newList = []
+          rest.forEach(el => {
+            if (el.goods && el.goods.length) {
+              el.goods.forEach((goods, i) => {
+                if (i === 0) {
+                  goods = Object.assign({}, el, goods)
+                }
+                goods._pid = el._id
+                newList.push(goods)
+              })
+            }
+          })
+          return newList
+        }
+        return this.tableData
+      }
     },
     methods: {
       loadList() {
@@ -30,24 +91,15 @@ function init(db) {
           date:1
         }).exec((err, res) => {
           if (!err) {
-            console.log(res);
-            let newList = []
             res.forEach(el => {
               // newList.push(el)
               if (el.goods && el.goods.length) {
                 el.goods.forEach((goods, i) => {
-                  if (i === 0) {
-                    goods = Object.assign({}, el, goods)
-                    // //如果是第一个商品给予一个P值识别以便于合并单元格
-                    // goods.type = 'p'
-                  }
-                  goods._pid = el._id
                   goods.date = dayjs(el.date).format('YYYY/MM/DD')
-                  newList.push(goods)
                 })
               }
             })
-            this.tableData = newList
+            this.originData = res
           }
         })
       },
@@ -247,8 +299,6 @@ function exportData() {
 
 
 function edit(db,table,id) {
-  console.log(table);
-  console.log(id);
   db.findOne({
     _id:id,
     dataType:'order'
@@ -290,9 +340,7 @@ function edit(db,table,id) {
       },
       yes() {
         const order = exportData()
-        console.log(order);
         loading("保存中..")
-
 
         db.update({
           _id:id

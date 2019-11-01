@@ -20,7 +20,7 @@
 
 </head>
 
-<body id="page-top">
+<body>
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -45,58 +45,80 @@
         </nav>
         <!-- Begin Page Content -->
         <div class="container-fluid" id="orderContainer">
-          <div class="row">
-            <div class="col-sm-12">
-              <div id="orderTable">
-                        <div class="form-inline">
-                            <button type="button" class="btn btn-sm btn-primary mb-2" id="orderAdd">新增</button>
-                            <button type="button" class="btn btn-sm btn-secondary mb-2 float-right" @click="exportDataEvent">导出</button>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="text" class="form-control form-control-sm"  placeholder="全表搜索">
-                              </div>
-                        </div>
-                <vxe-table 
-                size="small" 
-                border 
-                ref="order"
-                resizable 
-                highlight-hover-row 
-                :tooltip-config="{enterable: true}"
-                :span-method="spanMethod"
-                  :data="tableData">
-                  <vxe-table-column type="index" fixed='left' width="40"></vxe-table-column>
-                  <vxe-table-column field="date" fixed='left' width="120" title="日期"></vxe-table-column>
-                  <vxe-table-column field="name" show-overflow width="180" title="品名"></vxe-table-column>
-                  <vxe-table-column field="cas"  width="150" title="CAS#"></vxe-table-column>
-                  <vxe-table-column field="num"  width="120" title="数量"></vxe-table-column>
-                  <vxe-table-column field="income"  width="120" title="进项"></vxe-table-column>
-                  <vxe-table-column field="payment"  width="120" title="货款"></vxe-table-column>
-                  <vxe-table-column field="exchange"  width="120" title="购汇"></vxe-table-column>
-                  <vxe-table-column field="extra"  width="120" title="杂费"></vxe-table-column>
-                  <vxe-table-column field="fare"  width="120" title="运费"></vxe-table-column>
-                  <vxe-table-column field="tariff"  width="120" title="关税"></vxe-table-column>
-                  <vxe-table-column field="inputTax"  width="120" title="进项税"></vxe-table-column>
-                  <vxe-table-column field="outputTax"  width="120" title="出项税"></vxe-table-column>
-                  <vxe-table-column field="bankCharges"  width="120" title="银行手续费">
-                  </vxe-table-column>
-                  <vxe-table-column field="customer"  width="120" title="采购商"></vxe-table-column>
-                  <vxe-table-column field="supplier"  width="120" title="供应商"></vxe-table-column>
-                  <vxe-table-column field="remark" show-overflow width="120" title="备注"></vxe-table-column>
-                  <vxe-table-column field="paid"  width="80" title="是否付款"></vxe-table-column>
-                  <vxe-table-column field="abExpress"  width="120" title="国外快递公司"></vxe-table-column>
-                  <vxe-table-column field="abExpressNum"  width="120" title="国外快递单号"></vxe-table-column>
-                  <vxe-table-column field="express"  width="120" title="国内快递公司"></vxe-table-column>
-                  <vxe-table-column field="expressNum"  width="120" title="国内快递单号"></vxe-table-column>
-                  <vxe-table-column field="expressDate"  width="120" title="快递日期">
-                  </vxe-table-column>
-                  <vxe-table-column title="操作" fixed='right' show-overflow width="140">
-                    <template v-slot="{ row }">
-                      <vxe-button @click="editRowEvent(row)">编辑</vxe-button>
-                      <vxe-button @click="delRowEvent(row)">删除</vxe-button>
-                    </template>
-                  </vxe-table-column>
-                </vxe-table>
+          <div id="orderTable">
+            <div class="btn-group form-inline" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-sm btn-primary mb-2" id="orderAdd">新增</button>
+              <button type="button" class="btn btn-sm btn-secondary mb-2 float-right"
+                @click="exportDataEvent">导出</button>
+              <div class="input-group input-group-sm mb-2 ml-2">
+                <input type="text" class="form-control form-control-sm" v-model="filterName" placeholder="全表搜索">
+                <div class="input-group-append ">
+                  <button class="btn btn-outline-secondary" type="button" @click="filterName=''">重置</button>
+                </div>
               </div>
+            </div>
+            <div class="order-table-container">
+              <vxe-table size="small" border ref="order" auto-resize height="auto" resizable highlight-hover-row
+                :tooltip-config="{enterable: true}" :span-method="spanMethod" :data="list">
+                <vxe-table-column type="index" fixed='left' width="40"></vxe-table-column>
+                <vxe-table-column field="date" fixed='left' width="120" title="日期">
+                  <template v-slot="{ row }">
+                    <span v-html="row.date"></span>
+                  </template>
+                </vxe-table-column>
+                <vxe-table-column field="name" show-overflow width="180" title="品名">
+                  <template v-slot="{ row }">
+                    <span v-html="row.name"></span>
+                  </template>
+                </vxe-table-column>
+                <vxe-table-column field="cas" width="150" title="CAS#">
+                  <template v-slot="{ row }">
+                    <span v-html="row.cas"></span>
+                  </template>
+                </vxe-table-column>
+                <vxe-table-column field="num" width="120" title="数量"></vxe-table-column>
+                <vxe-table-column field="income" width="120" title="进项"></vxe-table-column>
+                <vxe-table-column field="payment" width="120" title="货款"></vxe-table-column>
+                <vxe-table-column field="exchange" width="120" title="购汇"></vxe-table-column>
+                <vxe-table-column field="extra" width="120" title="杂费"></vxe-table-column>
+                <vxe-table-column field="fare" width="120" title="运费"></vxe-table-column>
+                <vxe-table-column field="tariff" width="120" title="关税"></vxe-table-column>
+                <vxe-table-column field="inputTax" width="120" title="进项税"></vxe-table-column>
+                <vxe-table-column field="outputTax" width="120" title="出项税"></vxe-table-column>
+                <vxe-table-column field="bankCharges" width="120" title="银行手续费">
+                </vxe-table-column>
+                <vxe-table-column field="customer" width="120" title="采购商">
+                  <template v-slot="{ row }">
+                    <span v-html="row.customer"></span>
+                  </template>
+                </vxe-table-column>
+                <vxe-table-column field="supplier" width="120" title="供应商">
+                  <template v-slot="{ row }">
+                    <span v-html="row.supplier"></span>
+                  </template>
+                </vxe-table-column>
+                <vxe-table-column field="remark" show-overflow width="120" title="备注">
+                  <template v-slot="{ row }">
+                    <span v-html="row.remark"></span>
+                  </template>
+                </vxe-table-column>
+                <vxe-table-column field="paid" width="80" title="是否付款"></vxe-table-column>
+                <vxe-table-column field="abExpress" width="120" title="国外快递公司"></vxe-table-column>
+                <vxe-table-column field="abExpressNum" width="120" title="国外快递单号"></vxe-table-column>
+                <vxe-table-column field="express" width="120" title="国内快递公司"></vxe-table-column>
+                <vxe-table-column field="expressNum" width="120" title="国内快递单号"></vxe-table-column>
+                <vxe-table-column field="expressDate" width="120" title="快递日期">
+                </vxe-table-column>
+                <vxe-table-column title="操作" fixed='right' show-overflow width="140">
+                  <template v-slot="{ row }">
+
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <button class="btn btn-sm btn-outline-primary" @click="editRowEvent(row)">编辑</button>
+                      <button class="btn btn-sm btn-outline-danger" @click="delRowEvent(row)">删除</button>
+                    </div>
+                  </template>
+                </vxe-table-column>
+              </vxe-table>
             </div>
           </div>
         </div>
@@ -262,7 +284,11 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="js/jquery.min.js"></script>
-  <script>if (typeof module === 'object') { window.jQuery = window.$ = module.exports; };</script>
+  <script>
+    if (typeof module === 'object') {
+      window.jQuery = window.$ = module.exports;
+    };
+  </script>
   <script src="js/jquery-easing/jquery.easing.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/layer.js"></script>
