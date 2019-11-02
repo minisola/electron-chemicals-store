@@ -88,6 +88,7 @@ class CreateWindow extends BrowserWindow {
       width: 600,
       height: 600,
       show:false,
+      icon:'build/icon.png',
       webPreferences: {
         nodeIntegration: true
       }
@@ -101,7 +102,7 @@ class CreateWindow extends BrowserWindow {
     this.init()
   }
   init() {
-    this.setIcon('build/icon.ico')
+    // this.setIcon('build/icon.png')
     this.loadFile(this.fileUri)
     this.once('ready-to-show',()=>{
       this.show()

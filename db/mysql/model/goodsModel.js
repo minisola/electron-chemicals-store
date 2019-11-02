@@ -32,7 +32,7 @@ module.exports = {
 
         if (!Mysql) {
             const {account,password} = store.get('account')
-            Mysql = new Sequelize(`mysql://${account}:${password}@localhost:3306/hopschem`);
+            Mysql = new Sequelize(`mysql://${account}:${password}@101.37.39.160:3306/hopschem`);
             Goods = Mysql.import('../schema/t_goods_ch');
         }
         const limit = 10
