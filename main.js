@@ -35,8 +35,6 @@ function init() {
         label: '登录后台',
         click:function () {
           const remoteWindow = new CreateWindow({
-            width:'880',
-            height:'800',
             title:"合晶化工",
             remoteURL: 'http://hopschem.com:8001',
             autoHideMenuBar:true
@@ -50,9 +48,7 @@ function init() {
         click:function () {
           if (orderWindow) return 
           orderWindow = new CreateWindow({
-            width:'880',
-            height:'800',
-            fileUri: 'order.html',
+            fileUri: './order/order.html',
             autoHideMenuBar:true
           })
         if(process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
@@ -63,14 +59,15 @@ function init() {
   })
 
 
-  const orderWindow = new CreateWindow({
-    width: '880',
-    height: '600',
-    fileUri: './order/order.html',
-    autoHideMenuBar: true
-  })
-  orderWindow.setSize(880,600)
-  if (process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
+  // const orderWindow = new CreateWindow({
+  //   width: '880',
+  //   height: '600',
+  //   fileUri: './order/order.html',
+  //   autoHideMenuBar: true
+  // })
+  // orderWindow.setSize(880,600)
+
+  // if (process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
 
 
 
@@ -146,13 +143,14 @@ app.on('activate', function () {
  */
 class CreateWindow extends BrowserWindow {
   constructor(params = {}) {
+    let size = require('electron').screen.getPrimaryDisplay().workAreaSize
     if (params.menus) {
       const menu = Menu.buildFromTemplate(params.menus)
       Menu.setApplicationMenu(menu)
     }
     const defaultConfig = {
-      width: 600,
-      height: 600,
+      width:parseInt(size.width * 0.8),
+      height:parseInt(size.height * 0.8),
       show: false,
       icon: 'build/icon.png',
       webPreferences: {
