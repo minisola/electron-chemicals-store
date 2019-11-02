@@ -30,6 +30,12 @@
   "build": {
     "appId": "org.lostsakura.chemicals-store",
     "asar": true,
+    "files": [
+      "**/*",
+      "!docs${/*}",
+      "!cache/${/*}",
+      "!node_modules/@paulcbetts/cld/deps/cld${/*}"
+    ],
     "copyright": "©2019 lostsakura Inc.",
     "mac": {
       "category": "public.app-category.productivity",
