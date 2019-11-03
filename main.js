@@ -95,6 +95,8 @@ function init() {
         message: errString
       })
     })
+    console.log(goods);
+    
     if (!goods) return
     if (!goods.rows.length) {
       dialog.showMessageBox({
@@ -105,7 +107,7 @@ function init() {
     }
     const resultWindow = new CreateWindow({
       parent: mainWindow,
-      remoteURL: 'result.html',
+      fileUri: 'result.html',
       autoHideMenuBar: true
     })
 
