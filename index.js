@@ -63,6 +63,14 @@ function getDbInfo(hasCloseBtn) {
 
     layer.close(resetDialog)
     resetFlag =0
+
+    layer.confirm('配置保存成功，是否重启应用以生效？',function (index) {
+      layer.close(index)
+      ipcRenderer.send('relaunch')
+    })
+
+
+
   }
 }
 

@@ -51,6 +51,10 @@ function init() {
             fileUri: './order/order.html',
             autoHideMenuBar:true
           })
+          orderWindow.on('close',()=>{
+            orderWindow = false
+            
+          })
         if(process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
 
         }
@@ -100,8 +104,6 @@ function init() {
       return
     }
     const resultWindow = new CreateWindow({
-      width: '880',
-      height: '800',
       parent: mainWindow,
       remoteURL: 'result.html',
       autoHideMenuBar: true
@@ -120,6 +122,11 @@ function init() {
     mainWindow = null
   })
 }
+
+ipcMain.on('relaunch',()=>{
+  app.relaunch()
+  app.exit(0)
+})
 
 //监听关闭
 ipcMain.on('quit', () => {
@@ -144,8 +151,22 @@ app.on('activate', function () {
 class CreateWindow extends BrowserWindow {
   constructor(params = {}) {
     let size = require('electron').screen.getPrimaryDisplay().workAreaSize
+    let template = []
+    if (process.platform === 'darwin') {
+       template = [
+        {
+          label: "Edit",
+          submenu: [
+            { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+            { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+          ]
+        }
+      ];
+    } 
+
     if (params.menus) {
-      const menu = Menu.buildFromTemplate(params.menus)
+      const menusTemplate = template.concat(template,params.menus)
+      const menu = Menu.buildFromTemplate(menusTemplate)
       Menu.setApplicationMenu(menu)
     }
     const defaultConfig = {
