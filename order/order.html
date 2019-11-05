@@ -141,17 +141,33 @@
                 <button style="display: none;" type="button" class="btn btn-sm btn-primary" id="supplierAdd">新增</button>
               </h3>
 
-              <div class="card shadow mb-4" id="backupContainer">
+              <div class="card shadow mb-4" id="backupContainer" style="max-height: 400px;overflow:auto;">
                 <div class="card-body">
                   <p>备份和恢复本地数据库</p>
                   <button class="btn btn-sm btn-primary" id="backupHandle">手动备份</button>
                   <button class="btn btn-sm btn-success" id="recoverHandle">手动恢复</button>
                 </div>
+                <div class="card-body">
+                    <p>自动备份</p>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="autoBackupTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>自动备份时间</th>
+                          <th width="120">操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
 
 
               <div class="card shadow mb-4" id="tableContainer" style="display: none;">
-                <div class="card-body">
+                <div class="card-body" style="max-height: 400px;overflow:auto;">
                   <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                       <thead>

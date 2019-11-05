@@ -2,6 +2,11 @@ const {
   ipcRenderer
 } = require('electron')
 
+const fs = require('fs-extra');
+const path = require('path')
+const dayjs = require('dayjs')
+const {dialog} = require('electron').remote;
+
 const {
   loading,
   backup,
@@ -51,7 +56,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //绑定备份按钮
   $("#backupHandle").click(function () {
-    backup(err=>{
+    backup(dialog,err=>{
       layer.closeAll()
       if(err){
         layer.alert(err)
@@ -62,7 +67,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
  //绑定恢复按钮
   $("#recoverHandle").click(function () {
-    recover(err=>{
+    recover(null,dialog,err=>{
       layer.closeAll()
       if(err){
         layer.alert(err)
@@ -73,10 +78,61 @@ window.addEventListener('DOMContentLoaded', () => {
           autoload: true
         });
         layer.closeAll()
-        layer.alert("恢复成功")
+        layer.alert('恢复成功,应用将自动重启以生效',()=>{
+          ipcRenderer.send('relaunch')
+        })
       }
     })
   })
+
+  //生成自動備份列表
+  const backupPath = path.join(__dirname, '../db/backup')
+  let backupFiles = fs.readdirSync(backupPath).reverse()
+  backupFiles = backupFiles.filter(el=>/.+\.db$/.test(el))
+
+  $("#autoBackupTable tbody").html("")
+  if (backupFiles && backupFiles.length) {
+      let html = ""
+      backupFiles.forEach((el, i) => {
+          let name =dayjs(Number(el.match(/[0-9]+/g)[0])).format('YYYY-MM-DD HH:mm:ss') 
+          html += `<tr>
+        <td><b>${name}</b></td>
+        <td>
+          <button data-index="${i}" data-file="${el}" data-time="${name}" type="button" class="btn btn-sm btn-outline-primary btn-table-inner btn-table-inner-recover">恢复</button>
+        </td>
+      </tr>`
+      })
+      $("#autoBackupTable tbody").html(html)
+  }
+
+  $(document).on('click','.btn-table-inner-recover',function () {
+    const coverFile = $(this).data('file')
+    const time = $(this).data('time')
+    layer.confirm(`确认要将数据恢复到 ${time} (建议恢复前先手动备份当前数据)`,(index)=>{
+
+      //先自动备份
+      require('./autoBackup').checkBackup()
+      //再恢复
+      recover([path.join(__dirname, '../db/backup/' + coverFile)],null,err=>{
+        layer.closeAll()
+        if(err){
+          layer.alert(err)
+        }else{
+          loading("请稍候..")
+          db = new nedb({
+            filename: './db/local/order.db',
+            autoload: true
+          });
+          layer.closeAll()
+          layer.alert('恢复成功,应用将自动重启以生效',()=>{
+            ipcRenderer.send('relaunch')
+          })
+        }
+      })
+    })
+  })
+
+
 
 
   //主导航
