@@ -5,24 +5,29 @@
    copyFile
  } = require('../utils')
 
- function checkBackup(params) {
+ function checkBackup(app) {
    //数据文件存放地
-   const dbFile = path.join(__dirname, '../db/local/order.db')
+   const dbFile = path.join(app.getPath('userData'), '/db/local/order.db')
    //備份文件存放地
-   const backupPath = path.join(__dirname, '../db/backup')
-   //确保文件存在
-   fs.ensureFile(dbFile,()=>{
-    //備份文件
-    copyFile(dbFile,backupPath,true)
-       //遍歷備份文件
-    const files = fs.readdirSync(backupPath)
-    
-    removeDb(files)
+   const backupPath = path.join(app.getPath('userData'), '/db/backup')
+   console.log(backupPath);
+   fs.ensureDir(backupPath,()=>{
+        //确保文件存在
+        fs.ensureFile(dbFile,()=>{
+          //備份文件
+          copyFile(dbFile,backupPath,true)
+            //遍歷備份文件
+          const files = fs.readdirSync(backupPath)
+          
+          removeDb(app,files)
+        })
    })
+   
+   
  }
 
 //移除超期的文件
-function removeDb(files) {
+function removeDb(app,files) {
   let dbFiles = files.filter(el=>/.+\.db$/.test(el))
   const maxFileLength = 15
   if(dbFiles.length > maxFileLength){
@@ -30,7 +35,7 @@ function removeDb(files) {
     dbFiles.forEach((el,i) => {
       if(i>maxFileLength){
         try {
-          fs.removeSync(path.join(__dirname, '../db/backup/' + el))
+          fs.removeSync(path.join(app.getPath('userData'), '/db/backup/' + el))
         } catch (error) {
           console.log(error);
         }

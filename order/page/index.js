@@ -215,18 +215,27 @@ function init(db) {
         loading("保存中..")
 
         order.dataType = 'order'
+        console.log(order);
+        
 
-        db.insert(order, (err, res) => {
-          layer.closeAll()
+        try {
+          db.insert(order, (err, res) => {
 
-          if (!err) {
-            layer.msg("保存成功")
-            app.loadList()
-          } else {
-            layer.msg(err)
-          }
-
-        })
+            layer.closeAll()
+  
+            if (!err) {
+              layer.msg("保存成功")
+              app.loadList()
+            } else {
+              layer.msg(err)
+            }
+  
+          })
+        } catch (error) {
+          console.log(error);
+          
+        }
+        
       }
     })
   })

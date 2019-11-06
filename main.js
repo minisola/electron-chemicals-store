@@ -11,7 +11,7 @@ const {
   getOne
 } = require('./db/mysql/model/goodsModel')
 
-require('./order/autoBackup').checkBackup()
+require('./order/autoBackup').checkBackup(app)
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -56,7 +56,7 @@ function init() {
           orderWindow.on('close',()=>{
             orderWindow = false
           })
-        if(process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
+        if(process.env.NODE_ENV === 'dev')  orderWindow.openDevTools()
 
         }
       }]
@@ -64,11 +64,11 @@ function init() {
   })
 
 
-  orderWindow = new CreateWindow({
-    fileUri: './order/order.html',
-    autoHideMenuBar:true
-  })
-  if (process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
+  // orderWindow = new CreateWindow({
+  //   fileUri: './order/order.html',
+  //   autoHideMenuBar:true
+  // })
+  // if (process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
 
 
 
