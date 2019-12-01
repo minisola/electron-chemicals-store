@@ -64,11 +64,11 @@ function init() {
   })
 
 
-  orderWindow = new CreateWindow({
-    fileUri: './order/order.html',
-    autoHideMenuBar:true
-  })
-  if (process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
+  // orderWindow = new CreateWindow({
+  //   fileUri: './order/order.html',
+  //   autoHideMenuBar:true
+  // })
+  // if (process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
 
 
 
