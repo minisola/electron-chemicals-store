@@ -82,7 +82,18 @@ const html = `<div class="container" id="orderFormDialog" style="padding-top:20p
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="lastName">货款</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                        <select name="order-currency" class="custom-select">
+                                                <option value="$">$</option>
+                                                <option value="¥">¥</option>
+                                                <option value="₤">₤</option>
+                                                <option value="€">€</option>
+                                              </select>
+                                </div>
                             <input type="text" class="form-control" name="order-payment" placeholder="货款" value="">
+                               
+                              </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">购汇</label>

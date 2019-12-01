@@ -260,8 +260,8 @@ function initForm() {
   const express = JSON.parse(localStorage.express || "[]")
   $('#supplierSelecter').append(makSelect('order-supplier', supplier))
   $('#customerSelecter').append(makSelect('order-customer', customer))
-  $('#expressSelecter').append(makSelect('order-express', express))
-  $('#abExpressSelecter').append(makSelect('order-abExpress', express))
+  $('#expressSelecter').append(makSelect('order-express', express,true))
+  $('#abExpressSelecter').append(makSelect('order-abExpress', express,true))
   const goodsHTML = $('#cardContainer .card')[0].outerHTML
 
   bindDelBtn()

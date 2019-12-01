@@ -78,7 +78,12 @@
                 </vxe-table-column>
                 <vxe-table-column field="num" width="120" title="数量"></vxe-table-column>
                 <vxe-table-column field="income" width="120" title="进项"></vxe-table-column>
-                <vxe-table-column field="payment" width="120" title="货款"></vxe-table-column>
+                <vxe-table-column field="payment" width="120" title="货款">
+                    <template v-slot="{ row }">
+                        <span v-html="row.currency"></span>
+                        <span v-html="row.payment"></span>
+                      </template>
+                </vxe-table-column>
                 <vxe-table-column field="exchange" width="120" title="购汇"></vxe-table-column>
                 <vxe-table-column field="extra" width="120" title="杂费"></vxe-table-column>
                 <vxe-table-column field="fare" width="120" title="运费"></vxe-table-column>

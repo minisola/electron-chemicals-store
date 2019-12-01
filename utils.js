@@ -71,9 +71,11 @@ utils.recover = (inputPath,{dialog,app},callback) => {
     }
 }
 
-utils.makSelect = (name,list)=>{
+utils.makSelect = (name,list,hasBlankOpition)=>{
     let html = ` <select name="${name}" class="custom-select d-block w-100">`
-    const options = (list.map(el=>`<option value="${el.name}">${el.name}</option>`)).join(',')
+    let options = list.map(el=>`<option value="${el.name}">${el.name}</option>`)
+    if(hasBlankOpition) options = [`<option selected value="无">无</option>`,...options].join('')
+    else options = options.join('')
     html +=options
     html+=`</select>`
     return html
