@@ -24,8 +24,8 @@
     "nedb": "^1.8.0",
     "sequelize": "^5.2.8",
     "vue": "^2.6.10",
-    "vxe-table": "^2.6.22",
-    "xe-utils": "^2.2.15"
+    "vxe-table": "^2.6.7",
+    "xe-utils": "^2.2.11"
   },
   "build": {
     "appId": "org.lostsakura.chemicals-store",

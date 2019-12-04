@@ -22,41 +22,41 @@ function init() {
   // Create the browser window.
   mainWindow = new CreateWindow({
     fileUri: 'index.html',
-    menus:[{
+    menus: [{
       label: '设置',
       submenu: [{
         label: '远程服务器设置',
-        click:function (event, focusedWindow, focusedWebContents) {
+        click: function (event, focusedWindow, focusedWebContents) {
           //设置远程服务器账号密码
           focusedWindow.send('reset')
         }
       }]
-    },{
-      label:"信息管理",
+    }, {
+      label: "信息管理",
       submenu: [{
         label: '登录后台',
-        click:function () {
+        click: function () {
           const remoteWindow = new CreateWindow({
-            title:"合晶化工",
+            title: "合晶化工",
             remoteURL: 'http://hopschem.com:8001',
-            autoHideMenuBar:true
+            autoHideMenuBar: true
           })
         }
       }]
-    },{
-      label:"订单管理",
+    }, {
+      label: "订单管理",
       submenu: [{
         label: '订单管理',
-        click:function () {
-          if (orderWindow) return 
+        click: function () {
+          if (orderWindow) return
           orderWindow = new CreateWindow({
             fileUri: './order/order.html',
-            autoHideMenuBar:true
+            autoHideMenuBar: true
           })
-          orderWindow.on('close',()=>{
+          orderWindow.on('close', () => {
             orderWindow = false
           })
-        if(process.env.NODE_ENV === 'dev')  orderWindow.openDevTools()
+          if (process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
 
         }
       }]
@@ -64,15 +64,14 @@ function init() {
   })
 
 
-  // orderWindow = new CreateWindow({
-  //   fileUri: './order/order.html',
-  //   autoHideMenuBar:true
-  // })
-  // if (process.env.NODE_ENV === 'dev') orderWindow.openDevTools()
+  if (process.env.NODE_ENV === 'dev') {
+    orderWindow = new CreateWindow({
+      fileUri: './order/order.html',
+      autoHideMenuBar: true
+    })
+    orderWindow.openDevTools()
 
-
-
-  // if(process.env.NODE_ENV === 'dev') mainWindow.openDevTools()
+  }
 
   //监听搜索(
   ipcMain.on('search', async (e, info) => {
@@ -93,7 +92,7 @@ function init() {
       })
     })
     console.log(goods);
-    
+
     if (!goods) return
     if (!goods.rows.length) {
       dialog.showMessageBox({
@@ -122,7 +121,7 @@ function init() {
   })
 }
 
-ipcMain.on('relaunch',()=>{
+ipcMain.on('relaunch', () => {
   app.relaunch()
   app.exit(0)
 })
@@ -152,25 +151,30 @@ class CreateWindow extends BrowserWindow {
     let size = require('electron').screen.getPrimaryDisplay().workAreaSize
     let template = []
     if (process.platform === 'darwin') {
-       template = [
-        {
-          label: "Edit",
-          submenu: [
-            { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
-            { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
-          ]
-        }
-      ];
-    } 
+      template = [{
+        label: "Edit",
+        submenu: [{
+            label: "Copy",
+            accelerator: "CmdOrCtrl+C",
+            selector: "copy:"
+          },
+          {
+            label: "Paste",
+            accelerator: "CmdOrCtrl+V",
+            selector: "paste:"
+          },
+        ]
+      }];
+    }
 
     if (params.menus) {
-      const menusTemplate = template.concat(template,params.menus)
+      const menusTemplate = template.concat(template, params.menus)
       const menu = Menu.buildFromTemplate(menusTemplate)
       Menu.setApplicationMenu(menu)
     }
     const defaultConfig = {
-      width:parseInt(size.width * 0.8),
-      height:parseInt(size.height * 0.8),
+      width: parseInt(size.width * 0.8),
+      height: parseInt(size.height * 0.8),
       show: false,
       icon: 'build/icon.png',
       webPreferences: {

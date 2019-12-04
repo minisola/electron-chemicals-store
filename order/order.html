@@ -58,7 +58,13 @@
               </div>
             </div>
             <div class="order-table-container">
-              <vxe-table size="small" border ref="order" auto-resize height="auto" resizable highlight-hover-row
+              <vxe-table size="small" border ref="order"
+              highlight-current-row
+              :context-menu="{body: {options: bodyMenus}}"
+              @context-menu-click="contextMenuClickEvent"
+              @current-change="currentChangeEvent"
+              :row-style="rowStyle"
+              auto-resize height="auto" resizable highlight-hover-row
                 :tooltip-config="{enterable: true}" :span-method="spanMethod" :data="list">
                 <vxe-table-column type="index" fixed='left' width="40"></vxe-table-column>
                 <vxe-table-column field="date" fixed='left' width="120" title="日期">
@@ -114,7 +120,7 @@
                 <vxe-table-column field="expressNum" width="120" title="国内快递单号"></vxe-table-column>
                 <vxe-table-column field="expressDate" width="120" title="快递日期">
                 </vxe-table-column>
-                <vxe-table-column title="操作" fixed='right' show-overflow width="140">
+                <vxe-table-column title="操作" fixed='right' show-overflow width="160">
                   <template v-slot="{ row }">
 
                     <div class="btn-group" role="group" aria-label="Basic example">
