@@ -46,19 +46,38 @@
         <!-- Begin Page Content -->
         <div class="container-fluid" id="orderContainer">
           <div id="orderTable">
-            <div class="btn-group form-inline" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-sm btn-primary mb-2" id="orderAdd">新增</button>
-              <button type="button" class="btn btn-sm btn-secondary mb-2 float-right"
-                @click="exportDataEvent">导出</button>
-              <div class="input-group input-group-sm mb-2 ml-2">
-                <input type="text" class="form-control form-control-sm" v-model="filterName" placeholder="全表搜索">
-                <div class="input-group-append ">
-                  <button class="btn btn-outline-secondary" type="button" @click="filterName=''">重置</button>
-                </div>
-              </div>
+            <div class="d-flex justify-content-between align-content-center pb-2">
+                <div class="btn-group form-inline" role="group">
+                    <div class="form form-inline mr-2">
+                        <select class="form-control form-control-sm" id="setYear" v-model="currentYear">
+                            <option v-for="el of yearList" :key="el._id" :value="el.year">{{el.year}}</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-primary " id="orderAdd">新增</button>
+                    <button type="button" class="btn btn-sm btn-secondary float-right"
+                      @click="exportDataEvent">导出</button>
+                    <div class="input-group input-group-sm ml-2">
+                      <input type="text" class="form-control form-control-sm" v-model="filterName" placeholder="全表搜索">
+                      <div class="input-group-append ">
+                        <button class="btn btn-outline-secondary" type="button" @click="filterName=''">重置</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form form-inline ml-2">
+                      <select class="form-control form-control-sm" id="setFontSize" v-model="fontSize">
+                          <option value="mini">小号字体</option>
+                        <option selected value="small">中号字体</option>
+                        <option value="medium">大号字体</option>
+                        <option value="large">超大号字体</option>
+                      </select>
+                  </div>
+
             </div>
+           
             <div class="order-table-container">
               <vxe-table size="small" border ref="order"
+              v-if="tableShow"
+              :size="fontSize"
               highlight-current-row
               :context-menu="{body: {options: bodyMenus}}"
               @context-menu-click="contextMenuClickEvent"
@@ -159,7 +178,12 @@
                   <button class="btn btn-sm btn-success" id="recoverHandle">手动恢复</button>
                 </div>
                 <div class="card-body">
-                    <p>自动备份</p>
+                  <p>服务器数据同步 <span class="text-info" id="serverDbInfo"></span> </p>
+                  <button class="btn btn-sm btn-primary" id="uploadDb">上传数据库</button>
+                  <button class="btn btn-sm btn-success" id="downloadDb">下载数据库</button>
+                </div>
+                <div class="card-body">
+                    <p>本地自动备份</p>
                   <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="autoBackupTable" width="100%" cellspacing="0">
                       <thead>

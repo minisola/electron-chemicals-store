@@ -20,12 +20,13 @@
     "element-ui": "^2.12.0",
     "flatpickr": "^4.6.3",
     "fs-extra": "^8.1.0",
+    "ftp": "^0.3.10",
     "mysql2": "^1.6.5",
     "nedb": "^1.8.0",
     "sequelize": "^5.2.8",
     "vue": "^2.6.10",
     "vxe-table": "^2.6.22",
-    "xe-utils": "^2.2.15"
+    "xe-utils": "^2.2.16"
   },
   "build": {
     "appId": "org.lostsakura.chemicals-store",

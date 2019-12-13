@@ -29,13 +29,7 @@ utils.backup = ({dialog,app},callback) => {
 }
 
 utils.copyFile = (sourcePath ,targetPath,isTimestamp = false,callback)=>{
-    let currentTime = new Date()
-    let timeString = isTimestamp ? currentTime.getTime()  : (currentTime.getFullYear().toString() +
-        currentTime.getMonth().toString() +
-        currentTime.getDate().toString() +
-        currentTime.getHours().toString() +
-        currentTime.getMinutes().toString() +
-        currentTime.getSeconds().toString())
+    const timeString = utils.makTimeStamp(isTimestamp)
     fs.copy(sourcePath, path.join(targetPath, `backup-${timeString}.db`))
         .then(() => {
             callback && callback()
@@ -43,6 +37,17 @@ utils.copyFile = (sourcePath ,targetPath,isTimestamp = false,callback)=>{
         .catch(err => {
             callback && callback(err)
         })
+}
+utils.makTimeStamp = (isTimestamp)=>{
+    let currentTime = new Date()
+    let timeString = isTimestamp ? currentTime.getTime()  : (currentTime.getFullYear().toString() +
+        currentTime.getMonth().toString() +
+        currentTime.getDate().toString() +
+        currentTime.getHours().toString() +
+        currentTime.getMinutes().toString() +
+        currentTime.getSeconds().toString())
+
+        return timeString
 }
 
 utils.recover = (inputPath,{dialog,app},callback) => {
@@ -89,5 +94,78 @@ utils.loading = (text, params) => {
     }, params || {})
     return layer.msg(text || "载入中", options)
 }
+
+// 格式整理
+utils.checkDataForm = async (db)=>{
+    let yearArr = []
+    return  new Promise((resolve,reject)=>{
+        db.findOne({
+          dataType: 'order'
+        }).limit(1).exec(async (err, ret) => {
+          if (err) {
+              reject(err)
+          }
+          if(ret.year) {resolve()}
+          else {
+            formatData().then(()=>{
+                resolve()
+            }).catch(()=>{
+                reject()
+            })
+          }
+        })
+      })
+
+      async function formatData() {
+          return new Promise(resolve=>{
+            db.find({
+                dataType: 'order'
+              }).exec((err, ret) => {
+                if (err) {
+                    reject(err)
+                }
+                let updateArr = []
+                ret.forEach(el=>{
+                    updateArr.push(setYear(el))
+                })
+                Promise.all(updateArr).then(()=>{
+                    console.log(yearArr);
+                    yearArr = yearArr.map(el=>{
+                        return {
+                            dataType:'year',
+                            year:el
+                        }
+                    })
+                    db.insert(yearArr,function () {
+                        resolve()
+                    })
+                }).catch(()=>{
+                    reject()
+                })
+              })
+          })
+      }
+
+      async  function setYear(el){
+          return new Promise(resolve=>{
+              const year = el.date ? new Date(el.date).getFullYear() : '未知'
+                db.update({
+                    _id:el._id
+                },{
+                    $set: { year:year } 
+                },function(err){
+                    if(err) {reject()}
+                    else {
+                        if(!yearArr.includes(year)){
+                            yearArr.push(year)
+                        }
+                        resolve()
+                    }
+                })
+          })
+      }
+}
+
+
 
 module.exports = utils

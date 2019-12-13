@@ -61,6 +61,9 @@ window.addEventListener('DOMContentLoaded', () => {
   //初始化订单表
   require("./page/index").init(db)
 
+  //初始化服务器同步
+  require("./ftp").init(db)
+
   //绑定备份按钮
   $("#backupHandle").click(function () {
     backup({dialog,app},err=>{

@@ -2390,10 +2390,10 @@ vue@^2.6.10:
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha1-pysaQqTYKnIepDjRtr9V5mGVxjc=
 
-vxe-table@^2.6.7:
-  version "2.6.10"
-  resolved "https://registry.npm.taobao.org/vxe-table/download/vxe-table-2.6.10.tgz#0b66fe0ede979d244c6607a47bf54e021eb8d764"
-  integrity sha1-C2b+Dt6XnSRMZgeke/VOAh6412Q=
+vxe-table@^2.6.22:
+  version "2.6.22"
+  resolved "https://registry.npm.taobao.org/vxe-table/download/vxe-table-2.6.22.tgz#5c82f8094b0b3d46475197cbf24001ae6cec0cfd"
+  integrity sha1-XIL4CUsLPUZHUZfL8kABrmzsDP0=
 
 which-module@^2.0.0:
   version "2.0.0"
@@ -2466,10 +2466,10 @@ xdg-basedir@^3.0.0:
   resolved "https://registry.npm.taobao.org/xdg-basedir/download/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
   integrity sha1-SWsswQnsqNus/i3HK2A8F8WHCtQ=
 
-xe-utils@^2.2.11:
-  version "2.2.11"
-  resolved "https://registry.npm.taobao.org/xe-utils/download/xe-utils-2.2.11.tgz#c0a7cea6cf12b692c57301409a00c6b19af0cecd"
-  integrity sha1-wKfOps8StpLFcwFAmgDGsZrwzs0=
+xe-utils@^2.2.16:
+  version "2.2.16"
+  resolved "https://registry.npm.taobao.org/xe-utils/download/xe-utils-2.2.16.tgz#85cdbd9d8db242adbcd2575a92431297b1fba6bf"
+  integrity sha1-hc29nY2yQq280ldakkMSl7H7pr8=
 
 xmlbuilder@^9.0.7:
   version "9.0.7"

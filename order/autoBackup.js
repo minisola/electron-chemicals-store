@@ -5,7 +5,7 @@
    copyFile
  } = require('../utils')
 
- function checkBackup(app) {
+ function checkBackup(app,callback) {
    //数据文件存放地
    const dbFile = path.join(app.getPath('userData'), '/db/local/order.db')
    //備份文件存放地
@@ -20,6 +20,9 @@
           const files = fs.readdirSync(backupPath)
           
           removeDb(app,files)
+
+          callback && callback()
+
         })
    })
    
@@ -29,7 +32,7 @@
 //移除超期的文件
 function removeDb(app,files) {
   let dbFiles = files.filter(el=>/.+\.db$/.test(el))
-  const maxFileLength = 15
+  const maxFileLength = 25
   if(dbFiles.length > maxFileLength){
     dbFiles.reverse()
     dbFiles.forEach((el,i) => {

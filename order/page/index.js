@@ -1,9 +1,12 @@
 const flatpickr = require("flatpickr");
 const {
   makSelect,
-  loading
+  loading,
+  checkDataForm
 } = require('../../utils')
 const dayjs = require('dayjs')
+const Store = require('electron-store');
+const store = new Store();
 
 
 const Vue = require('vue/dist/vue')
@@ -24,8 +27,12 @@ function init(db) {
 
   app = new Vue({
     data: {
+      tableShow:true,
       originData: [],
       filterName: "",
+      fontSize:store.get('tableFontSize') || 'small',
+      yearList:[],
+      currentYear:'',
       bodyMenus: [
         [{
           code: 'mark',
@@ -58,15 +65,32 @@ function init(db) {
         }]
       ]
     },
-    created() {
-      $(".order-table-container").height($('body').height() - 150)
-      window.onresize = function () {
+    async created() {
+      //检查数据格式
+      await checkDataForm(db).then(()=>{
+        //设置高度
         $(".order-table-container").height($('body').height() - 150)
+        window.onresize = function () {
+          $(".order-table-container").height($('body').height() - 150)
+        }
+        this.initYear()
+      })
+    },
+    watch:{
+      fontSize(n,o){
+        this.tableShow = false
+        this.fontSize = n
+        store.set('tableFontSize',n)
+        this.$nextTick(()=>{
+          this.tableShow = true
+        })
+      },
+      currentYear(n){
+        this.loadList()
       }
-      this.loadList()
-      //设置高度
     },
     computed: {
+ 
       tableData() {
         const res = this.originData
         let newList = []
@@ -126,6 +150,18 @@ function init(db) {
       }
     },
     methods: {
+          //载入年份列表
+      initYear(){
+          db.find({
+            dataType:'year'
+          }).sort({
+            year:-1
+          }).exec((err,ret)=>{
+            this.yearList = ret
+            this.currentYear = (ret&&ret[0].year) || new Date().getFullYear()
+            this.loadList()
+          })
+      },
       //行选中事件
       currentChangeEvent({
         row
@@ -191,7 +227,8 @@ function init(db) {
       },
       loadList() {
         db.find({
-          dataType: 'order'
+          dataType: 'order',
+          year:this.currentYear
         }).sort({
           date: 1
         }).exec((err, res) => {
@@ -218,8 +255,24 @@ function init(db) {
           }, err => {
             if (err) return layer.msg('err')
             layer.msg("删除成功")
-            this.loadList()
+            this.checkDelYear(row.year)
           })
+        })
+      },
+      //如果没有该年份的订单了,就从表里删除
+      checkDelYear(delYear){
+        db.findOne({
+          dataType:"year",
+          year:delYear
+        }).exec((err, ret)=>{
+          console.log(ret);
+            if(ret) {
+              this.initYear()
+              return
+            }else{
+              db.remove({ dataType: 'year',year:delYear });
+              this.initYear()
+            }
         })
       },
       editRowEvent(row) {
@@ -306,10 +359,7 @@ function init(db) {
   }).$mount("#orderTable")
 
 
-
-
-
-
+//新增
   $("#orderAdd").on('click', function () {
     layer.open({
       type: 1,
@@ -322,31 +372,30 @@ function init(db) {
         initForm()
 
       },
-      yes() {
-        const order = exportData()
+      async yes() {
+        const order = await exportData()
 
         loading("保存中..")
 
         order.dataType = 'order'
-        console.log(order);
-
 
         try {
           db.insert(order, (err, res) => {
-
-            layer.closeAll()
-
-            if (!err) {
-              layer.msg("保存成功")
-              app.loadList()
-            } else {
-              layer.msg(err)
-            }
-
+            success(err)
           })
         } catch (error) {
           console.log(error);
 
+        }
+
+        function success(err) {
+          layer.closeAll()
+            if (!err) {
+              layer.msg("保存成功")
+              app.initYear()
+            } else {
+              layer.msg(err)
+            }
         }
 
       }
@@ -394,7 +443,8 @@ function initForm() {
   });
 }
 
-function exportData() {
+//生成数据JSON
+async function exportData() {
   let order = {}
   let goods = []
   let $inputs = $('#orderFormDialog').find('input,select');
@@ -415,11 +465,35 @@ function exportData() {
   order.goods = goods
   order.createTime = new Date().getTime()
   order.date = order.date ? new Date(order.date).getTime() : ""
+  order.year = order.date ? new Date(order.date).getFullYear() : "未知"
   order.dataType = 'order'
+
+  await saveYear()
+ 
   return order
+  //保存年份
+  function saveYear(){
+    return new Promise((resolve, reject)=>{
+      db.findOne({
+        dataType:'year',
+        year:order.year
+      },function (err,ret) {
+          if(!ret){
+              db.insert({
+                  dataType:'year',
+                  year:order.year
+              },function(){
+                  resolve()
+              })
+          }else{
+            resolve()
+          }
+      })
+    })
+  }
 }
 
-
+//编辑
 function edit(db, table, id) {
   db.findOne({
     _id: id,
@@ -460,8 +534,8 @@ function edit(db, table, id) {
           }
         })
       },
-      yes() {
-        const order = exportData()
+      async yes() {
+        const order = await exportData()
         loading("保存中..")
 
         db.update({
@@ -472,7 +546,7 @@ function edit(db, table, id) {
           layer.closeAll()
           if (!err) {
             layer.msg("保存成功")
-            app.loadList()
+            app.initYear()
           } else {
             layer.msg(err)
           }
