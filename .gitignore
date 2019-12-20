@@ -3,3 +3,4 @@ cache
 dist
 db/backup
 db/local/order.db
+.DS_Store
