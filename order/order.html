@@ -63,7 +63,12 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form form-inline ml-2">
+                  <div style="display: flex;
+                  flex: 1;
+                  justify-content: flex-end;
+                  align-items: center;
+              ">
+                    <div class="form form-inline ml-2" style="display: inline-block;">
                       <select class="form-control form-control-sm" id="setFontSize" v-model="fontSize">
                           <option value="mini">小号字体</option>
                         <option selected value="small">中号字体</option>
@@ -71,8 +76,16 @@
                         <option value="large">超大号字体</option>
                       </select>
                   </div>
-
+                  <vxe-toolbar  style="display: inline-block;"
+                  id="table"
+                  :custom="{
+                    immediate:true,
+                    storage:true
+                  }"
+                  ></vxe-toolbar>
+                  </div s>
             </div>
+           
            
             <div class="order-table-container">
               <vxe-table size="small" border ref="order"
