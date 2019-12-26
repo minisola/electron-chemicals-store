@@ -6,6 +6,7 @@ const {
   Menu,
   dialog
 } = require('electron')
+const path = require('path')
 
 const {
   getOne
@@ -176,7 +177,7 @@ class CreateWindow extends BrowserWindow {
       width: parseInt(size.width * 0.8),
       height: parseInt(size.height * 0.8),
       show: false,
-      icon: 'build/icon.png',
+      icon: path.join(__dirname,'build/icon.ico'),
       webPreferences: {
         nodeIntegration: true
       }
