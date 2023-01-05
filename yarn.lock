@@ -900,6 +900,14 @@ fs-extra@^8.1.0:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
+ftp@^0.3.10:
+  version "0.3.10"
+  resolved "https://registry.yarnpkg.com/ftp/-/ftp-0.3.10.tgz#9197d861ad8142f3e63d5a83bfe4c59f7330885d"
+  integrity sha512-faFVML1aBx2UoDStmLwv2Wptt4vw5x03xxX172nhA5Y5HBshW5JweqQ2W4xL4dezQTG8inJsuYcpPHHU3X5OTQ==
+  dependencies:
+    readable-stream "1.1.x"
+    xregexp "2.0.0"
+
 generate-function@^2.3.1:
   version "2.3.1"
   resolved "https://registry.npm.taobao.org/generate-function/download/generate-function-2.3.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fgenerate-function%2Fdownload%2Fgenerate-function-2.3.1.tgz#f069617690c10c868e73b8465746764f97c3479f"
@@ -1227,11 +1235,9 @@ json-stringify-safe@~5.0.1:
   integrity sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=
 
 json5@^2.1.0:
-  version "2.1.1"
-  resolved "https://registry.npm.taobao.org/json5/download/json5-2.1.1.tgz#81b6cb04e9ba496f1c7005d07b4368a2638f90b6"
-  integrity sha1-gbbLBOm6SW8ccAXQe0NoomOPkLY=
-  dependencies:
-    minimist "^1.2.0"
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
+  integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
 jsonfile@^4.0.0:
   version "4.0.0"
@@ -1790,6 +1796,16 @@ read-pkg@^1.0.0:
     normalize-package-data "^2.3.2"
     path-type "^1.0.0"
 
+readable-stream@1.1.x, readable-stream@~1.1.9:
+  version "1.1.14"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.1.14.tgz#7cf4c54ef648e3813084c636dd2079e166c081d9"
+  integrity sha512-+MeVjFf4L44XUkhM1eYbD8fyEsxcV81pqMSR5gblfcLCHfZvbrqy4/qYHE+/R5HoBUT11WV5O08Cr1n3YXkWVQ==
+  dependencies:
+    core-util-is "~1.0.0"
+    inherits "~2.0.1"
+    isarray "0.0.1"
+    string_decoder "~0.10.x"
+
 readable-stream@^2.2.2:
   version "2.3.6"
   resolved "https://registry.npm.taobao.org/readable-stream/download/readable-stream-2.3.6.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freadable-stream%2Fdownload%2Freadable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
@@ -1802,16 +1818,6 @@ readable-stream@^2.2.2:
     safe-buffer "~5.1.1"
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
-
-readable-stream@~1.1.9:
-  version "1.1.14"
-  resolved "https://registry.npm.taobao.org/readable-stream/download/readable-stream-1.1.14.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freadable-stream%2Fdownload%2Freadable-stream-1.1.14.tgz#7cf4c54ef648e3813084c636dd2079e166c081d9"
-  integrity sha1-fPTFTvZI44EwhMY23SB54WbAgdk=
-  dependencies:
-    core-util-is "~1.0.0"
-    inherits "~2.0.1"
-    isarray "0.0.1"
-    string_decoder "~0.10.x"
 
 redent@^1.0.0:
   version "1.0.0"
@@ -2390,10 +2396,10 @@ vue@^2.6.10:
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha1-pysaQqTYKnIepDjRtr9V5mGVxjc=
 
-vxe-table@^2.6.22:
-  version "2.6.22"
-  resolved "https://registry.npm.taobao.org/vxe-table/download/vxe-table-2.6.22.tgz#5c82f8094b0b3d46475197cbf24001ae6cec0cfd"
-  integrity sha1-XIL4CUsLPUZHUZfL8kABrmzsDP0=
+vxe-table@^2.7.11:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/vxe-table/-/vxe-table-2.11.0.tgz#0000e5da80a518ae781fc18ad4a47a94da18f571"
+  integrity sha512-dDLV2Iiy/8Yiy14MX91TQb2HsW9K5ZYS3+xIjBmKc5JFMEHeuB8SxaFShSXhVk9GNTd+/u0GqvQhDoQ1WXAwnw==
 
 which-module@^2.0.0:
   version "2.0.0"
@@ -2466,10 +2472,10 @@ xdg-basedir@^3.0.0:
   resolved "https://registry.npm.taobao.org/xdg-basedir/download/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
   integrity sha1-SWsswQnsqNus/i3HK2A8F8WHCtQ=
 
-xe-utils@^2.2.16:
-  version "2.2.16"
-  resolved "https://registry.npm.taobao.org/xe-utils/download/xe-utils-2.2.16.tgz#85cdbd9d8db242adbcd2575a92431297b1fba6bf"
-  integrity sha1-hc29nY2yQq280ldakkMSl7H7pr8=
+xe-utils@^2.3.0:
+  version "2.8.3"
+  resolved "https://registry.yarnpkg.com/xe-utils/-/xe-utils-2.8.3.tgz#b5cc9e871d1115a7ac3f2a9292c1dea5efe0f2d0"
+  integrity sha512-qjiq6juv+ZPDJC3oXr9E4wjaN73G/yeqUfozpmZOmBBTw2oH5A60Jz3AvCVLKFoTQl7qfsjefR9i2gyyMz7TQw==
 
 xmlbuilder@^9.0.7:
   version "9.0.7"
@@ -2480,6 +2486,11 @@ xmldom@0.1.x:
   version "0.1.27"
   resolved "https://registry.npm.taobao.org/xmldom/download/xmldom-0.1.27.tgz#d501f97b3bdb403af8ef9ecc20573187aadac0e9"
   integrity sha1-1QH5ezvbQDr4757MIFcxh6rawOk=
+
+xregexp@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/xregexp/-/xregexp-2.0.0.tgz#52a63e56ca0b84a7f3a5f3d61872f126ad7a5943"
+  integrity sha512-xl/50/Cf32VsGq/1R8jJE5ajH1yMCQkpmoS10QbFZWl2Oor4H0Me64Pu2yxvsRWK3m6soJbmGfzSR7BYmDcWAA==
 
 xtend@~2.1.1:
   version "2.1.2"
